@@ -746,6 +746,37 @@ html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-card
 }
 .step p{font-size:.85rem;color:var(--muted);line-height:1.55}
 
+@keyframes stepCardIn{
+  from{opacity:0;transform:translateY(1.6rem)}
+  to{opacity:1;transform:translateY(0)}
+}
+html.deck-headline-motion .process-section.deck-slide:not(.deck-headline-played) .process-steps .step{
+  opacity:0;
+  transform:translateY(1.6rem)
+}
+html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(1){
+  animation:stepCardIn .6s cubic-bezier(0.22,1,0.36,1) .15s forwards
+}
+html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(2){
+  animation:stepCardIn .6s cubic-bezier(0.22,1,0.36,1) .35s forwards
+}
+html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(3){
+  animation:stepCardIn .6s cubic-bezier(0.22,1,0.36,1) .55s forwards
+}
+html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(4){
+  animation:stepCardIn .6s cubic-bezier(0.22,1,0.36,1) .75s forwards
+}
+html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(5){
+  animation:stepCardIn .6s cubic-bezier(0.22,1,0.36,1) .95s forwards
+}
+@media (prefers-reduced-motion: reduce){
+  html.deck-headline-motion .process-section .process-steps .step{
+    opacity:1!important;
+    transform:none!important;
+    animation:none!important
+  }
+}
+
 /* ─── TRUST ─── */
 .trust-section{background:var(--surface)}
 .trust-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2.5rem}
@@ -1042,7 +1073,8 @@ footer{
   .print-video-fallback{display:block !important;color:#333 !important;border-color:#ccc !important}
   .format-section.tinted,.format-section.plain,.hero-bg,.cta-section{background:#fff !important}
   .about-section .about-cards .acard,
-  .ugc-section .ugc-cards .ugc-card{
+  .ugc-section .ugc-cards .ugc-card,
+  .process-section .process-steps .step{
     opacity:1!important;
     transform:none!important;
     animation:none!important
