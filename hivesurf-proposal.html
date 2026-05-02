@@ -258,14 +258,14 @@ html:not(.deck-headline-motion) .hero-tag{
   line-height:.95;letter-spacing:.02em;margin-bottom:.3em;
   display:flex;flex-direction:column;align-items:flex-start
 }
-.hero-line{display:block;opacity:0}
-html:not(.deck-headline-motion) .hero-line--1{
-  animation:heroFadeUp .85s cubic-bezier(0.22,1,0.36,1) .12s forwards
+.hero-line{
+  display:block;
+  min-height:0.98em;
+  color:var(--text)
 }
-html:not(.deck-headline-motion) .hero-line--2{
-  animation:
-    heroFadeUp .85s cubic-bezier(0.22,1,0.36,1) .28s forwards,
-    heroLineShine 3.2s ease-in-out 1s infinite;
+.hero-line .hero-type{white-space:nowrap}
+.hero-line--2:not(.is-shining){color:var(--text)}
+.hero-line--2.is-shining{
   background:linear-gradient(
     105deg,
     var(--accent) 0%,
@@ -281,53 +281,62 @@ html:not(.deck-headline-motion) .hero-line--2{
   background-clip:text;
   -webkit-text-fill-color:transparent;
   color:transparent;
-  padding-bottom:.02em
+  padding-bottom:.02em;
+  animation:heroLineShine 3.2s ease-in-out infinite
+}
+.hero-caret{
+  display:inline-block;
+  width:0.055em;
+  min-width:3px;
+  margin-left:.06em;
+  height:0.72em;
+  background:var(--accent);
+  vertical-align:-0.02em;
+  animation:heroCaretBlink .52s step-end infinite
+}
+.hero-caret.hero-caret-off{
+  display:none;
+  width:0;
+  margin:0;
+  animation:none
+}
+@keyframes heroCaretBlink{
+  0%,100%{opacity:1}
+  50%{opacity:0}
 }
 html.deck-headline-motion .hero.deck-slide:not(.deck-headline-played) .hero-tag,
-html.deck-headline-motion .hero.deck-slide:not(.deck-headline-played) .hero-line{
+html.deck-headline-motion .hero.deck-slide:not(.deck-headline-played) .hero-title .hero-line{
   opacity:0!important;
-  animation:none!important;
-  transform:none
+  pointer-events:none
+}
+html.deck-headline-motion .hero.deck-slide:not(.deck-headline-played) .hero-line .hero-caret{
+  display:none!important
 }
 html.deck-headline-motion .hero.deck-slide.deck-headline-played .hero-tag{
   animation:heroFadeUp .75s cubic-bezier(0.22,1,0.36,1) forwards
 }
-html.deck-headline-motion .hero.deck-slide.deck-headline-played .hero-line--1{
-  animation:heroFadeUp .85s cubic-bezier(0.22,1,0.36,1) .12s forwards
-}
-html.deck-headline-motion .hero.deck-slide.deck-headline-played .hero-line--2{
-  animation:
-    heroFadeUp .85s cubic-bezier(0.22,1,0.36,1) .28s forwards,
-    heroLineShine 3.2s ease-in-out 1s infinite;
-  background:linear-gradient(
-    105deg,
-    var(--accent) 0%,
-    var(--accent) 38%,
-    var(--accent-2) 45%,
-    #c8d8ff 50%,
-    var(--accent-2) 55%,
-    var(--accent) 62%,
-    var(--accent) 100%
-  );
-  background-size:220% auto;
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  color:transparent;
-  padding-bottom:.02em
+html.deck-headline-motion .hero.deck-slide.deck-headline-played .hero-title .hero-line{
+  opacity:1!important
 }
 @media (prefers-reduced-motion: reduce){
-  .hero-tag,.hero-line{
+  .hero-tag{
     animation:none !important;
     opacity:1 !important;
     transform:none !important
   }
+  .hero-title .hero-line{
+    opacity:1!important;
+    pointer-events:auto!important
+  }
+  .hero-line--2.is-shining,
   .hero-line--2{
+    animation:none !important;
     background:none !important;
     -webkit-text-fill-color:var(--accent) !important;
     color:var(--accent) !important;
     background-size:auto !important
   }
+  .hero-caret{display:none!important}
 }
 .hero-sub{
   font-size:clamp(1rem,1.6vw,1.25rem);font-weight:400;
@@ -389,11 +398,48 @@ hr.sdiv{border:none;border-top:1px solid var(--border);margin:0}
 .about-section{background:var(--surface)}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 @media(max-width:800px){.about-grid{grid-template-columns:1fr}}
-.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.about-cards{
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+  perspective:1100px;
+  perspective-origin:50% 35%
+}
 .acard{
   background:var(--tint);border:1px solid var(--border);
   border-radius:6px;padding:1.5rem;
-  transition:border-color .2s,background .2s
+  transition:border-color .2s,background .2s;
+  transform-style:preserve-3d
+}
+@keyframes aboutAcardFlipIn{
+  0%{opacity:0;transform:rotateY(-88deg)}
+  100%{opacity:1;transform:rotateY(0deg)}
+}
+html.deck-headline-motion .about-section.deck-slide:not(.deck-headline-played) .about-cards .acard{
+  opacity:0;
+  transform:rotateY(-88deg)
+}
+html.deck-headline-motion .about-section.deck-slide.deck-headline-played .about-cards .acard:nth-child(1){
+  animation:aboutAcardFlipIn .72s cubic-bezier(0.22,1,0.36,1) forwards;
+  animation-delay:.18s
+}
+html.deck-headline-motion .about-section.deck-slide.deck-headline-played .about-cards .acard:nth-child(2){
+  animation:aboutAcardFlipIn .72s cubic-bezier(0.22,1,0.36,1) forwards;
+  animation-delay:.42s
+}
+html.deck-headline-motion .about-section.deck-slide.deck-headline-played .about-cards .acard:nth-child(3){
+  animation:aboutAcardFlipIn .72s cubic-bezier(0.22,1,0.36,1) forwards;
+  animation-delay:.66s
+}
+html.deck-headline-motion .about-section.deck-slide.deck-headline-played .about-cards .acard:nth-child(4){
+  animation:aboutAcardFlipIn .72s cubic-bezier(0.22,1,0.36,1) forwards;
+  animation-delay:.9s
+}
+@media (prefers-reduced-motion: reduce){
+  html.deck-headline-motion .about-section .about-cards .acard,
+  html.deck-headline-motion .ugc-section .ugc-cards .ugc-card{
+    opacity:1!important;
+    transform:none!important;
+    animation:none!important
+  }
 }
 .acard:hover{border-color:var(--accent-strong);background:var(--accent-soft)}
 .acard-icon{
@@ -569,6 +615,26 @@ hr.sdiv{border:none;border-top:1px solid var(--border);margin:0}
 }
 .ugc-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;color:var(--text)}
 .ugc-card p{font-size:.86rem;color:var(--muted);line-height:1.6}
+@keyframes ugcCardSlideIn{
+  from{opacity:0;transform:translateX(2.25rem)}
+  to{opacity:1;transform:translateX(0)}
+}
+html.deck-headline-motion .ugc-section.deck-slide:not(.deck-headline-played) .ugc-cards .ugc-card{
+  opacity:0;
+  transform:translateX(2.25rem)
+}
+html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-cards .ugc-card:nth-child(1){
+  animation:ugcCardSlideIn .68s cubic-bezier(0.22,1,0.36,1) forwards;
+  animation-delay:.15s
+}
+html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-cards .ugc-card:nth-child(2){
+  animation:ugcCardSlideIn .68s cubic-bezier(0.22,1,0.36,1) forwards;
+  animation-delay:.4s
+}
+html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-cards .ugc-card:nth-child(3){
+  animation:ugcCardSlideIn .68s cubic-bezier(0.22,1,0.36,1) forwards;
+  animation-delay:.65s
+}
 .ugc-stat-row{
   display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
   background:var(--tint);border:1px solid var(--border);
@@ -944,12 +1010,19 @@ footer{
     animation:none!important
   }
   .hero-line,.hero-tag{opacity:1!important;animation:none!important;transform:none!important}
-  .hero-line--2{
+  .hero-type:empty::after{
+    content:attr(data-full);
+    color:var(--text)
+  }
+  .hero-line--2 .hero-type:empty::after{
+    color:#1E5BFF!important
+  }
+  .hero-line--2.is-shining{
     background:none!important;
     -webkit-text-fill-color:#1E5BFF!important;
-    color:#1E5BFF!important;
-    background-size:auto!important
+    animation:none!important
   }
+  .hero-caret{display:none!important}
   .truth-wrong-text:empty::after{
     content:attr(data-full);
     color:#1E5BFF!important
@@ -967,6 +1040,12 @@ footer{
   .phone-frame::before,.phone-frame::after{display:none !important}
   .print-video-fallback{display:block !important;color:#333 !important;border-color:#ccc !important}
   .format-section.tinted,.format-section.plain,.hero-bg,.cta-section{background:#fff !important}
+  .about-section .about-cards .acard,
+  .ugc-section .ugc-cards .ugc-card{
+    opacity:1!important;
+    transform:none!important;
+    animation:none!important
+  }
   a{color:#1E5BFF !important;text-decoration:underline}
 }
 
@@ -1050,9 +1129,13 @@ footer{
   <div class="hero-bg"></div>
   <div style="position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%">
     <div class="hero-tag">Hivesurf Proposal · 2026</div>
-    <h1 class="hero-title">
-      <span class="hero-line hero-line--1">YOUR BRAND</span>
-      <span class="hero-line hero-line--2 line2">NEEDS US.</span>
+    <h1 class="hero-title" id="heroHeadline" aria-label="Your brand needs us">
+      <span class="hero-line hero-line--1">
+        <span class="hero-type" data-full="YOUR BRAND"></span><span class="hero-caret" aria-hidden="true"></span>
+      </span>
+      <span class="hero-line hero-line--2 line2">
+        <span class="hero-type" data-full="NEEDS US."></span><span class="hero-caret hero-caret-off" aria-hidden="true"></span>
+      </span>
     </h1>
     <p class="hero-sub">Real audiences. Real engagement. Trust engineered at scale — no vanity metrics, no ghost followers.</p>
     <div class="hero-stats">
@@ -1602,95 +1685,227 @@ footer{
 })();
 
 (function(){
-  var slides = document.querySelectorAll('.deck-slide');
-  var n = slides.length;
-  var currEl = document.getElementById('deckCurr');
-  var totalEl = document.getElementById('deckTotal');
-  var kickerEl = document.getElementById('deckKicker');
-  var labels = ['Cover','Who we are','2026 truth','UGC & brand face','Packages','ROI','Process','Compare','Influencer format','UGC format','Live work','Contact'];
-  var rail = document.querySelectorAll('.deck-rail a');
-  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!prefersReduced) {
-    document.documentElement.classList.add('deck-headline-motion');
-  }
+  /* ── Take full control of scroll position on reload ── */
+  try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(e){}
+
+  var slides    = document.querySelectorAll('.deck-slide');
+  var n         = slides.length;
+  var currEl    = document.getElementById('deckCurr');
+  var totalEl   = document.getElementById('deckTotal');
+  var kickerEl  = document.getElementById('deckKicker');
+  var labels    = ['Cover','Who we are','2026 truth','UGC & brand face','Packages','ROI','Process','Compare','Influencer format','UGC format','Live work','Contact'];
+  var rail      = document.querySelectorAll('.deck-rail a');
+  var reduced   = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SESS_KEY  = 'hivesurf-slide-id';  /* sessionStorage — survives reload, cleared on tab close */
+
+  if (!reduced) document.documentElement.classList.add('deck-headline-motion');
   if (totalEl && n) totalEl.textContent = String(n).padStart(2,'0');
-  function setActive(i){
-    if (currEl) currEl.textContent = String(i + 1).padStart(2,'0');
-    if (kickerEl) kickerEl.textContent = labels[i] || 'Slide';
-    rail.forEach(function(a, j){ a.classList.toggle('is-active', j === i); });
-  }
   if (!slides.length) return;
-  setActive(0);
-  if (!prefersReduced && slides[0]) {
-    slides[0].classList.add('deck-headline-played');
+
+  /* ── Persist ── */
+  function saveSlide(id){
+    try { sessionStorage.setItem(SESS_KEY, id); } catch(e){}
   }
-  if (!('IntersectionObserver' in window)) {
-    if (!prefersReduced) {
-      slides.forEach(function(s){ s.classList.add('deck-headline-played'); });
+  function savedSlideId(){
+    try { return sessionStorage.getItem(SESS_KEY) || ''; } catch(e){ return ''; }
+  }
+  function idToIndex(id){
+    if (!id) return -1;
+    for (var i = 0; i < slides.length; i++) if (slides[i].id === id) return i;
+    return -1;
+  }
+
+  /* ── Nav bar + rail ── */
+  function setActive(i){
+    if (i < 0 || i >= n) return;
+    if (currEl)   currEl.textContent  = String(i + 1).padStart(2,'0');
+    if (kickerEl) kickerEl.textContent = labels[i] || 'Slide';
+    rail.forEach(function(a,j){ a.classList.toggle('is-active', j === i); });
+    if (slides[i] && slides[i].id) saveSlide(slides[i].id);
+  }
+
+  /* ── Mark headline played for slide + everything before it ── */
+  function markPlayed(idx){
+    if (reduced) return;
+    for (var k = 0; k <= idx; k++) slides[k].classList.add('deck-headline-played');
+  }
+
+  /* ── Scroll to a slide instantly (no animation — used on restore) ── */
+  function jumpTo(idx){
+    if (idx < 0 || idx >= n) return;
+    markPlayed(idx);
+    setActive(idx);
+    slides[idx].scrollIntoView({ behavior: 'instant', block: 'start' });
+  }
+
+  /* ── Find which slide is most visible right now ── */
+  function visibleIndex(){
+    var mid = (window.scrollY || window.pageYOffset) + window.innerHeight * 0.46;
+    var best = 0, bestD = 1e18;
+    for (var i = 0; i < n; i++){
+      var el = slides[i];
+      var top = el.offsetTop;
+      var bot = top + el.offsetHeight;
+      if (mid >= top && mid <= bot) return i;
+      var d = Math.min(Math.abs(mid - top), Math.abs(mid - bot));
+      if (d < bestD){ bestD = d; best = i; }
     }
-    return;
+    return best;
   }
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if (!entry.isIntersecting) return;
-      var slide = entry.target;
-      if (!prefersReduced && !slide.classList.contains('deck-headline-played')) {
-        slide.classList.add('deck-headline-played');
-      }
-      var idx = Array.prototype.indexOf.call(slides, slide);
-      if (idx >= 0) setActive(idx);
-    });
-  }, { root: null, rootMargin: '-38% 0px -38% 0px', threshold: 0 });
-  slides.forEach(function(s){ io.observe(s); });
-  function refreshDeckHeadlinesFromLayout(){
-    if (prefersReduced) return;
-    var vh = window.innerHeight || 1;
-    var topL = vh * 0.38;
-    var botL = vh * 0.62;
-    var bestI = -1;
-    var bestDist = 1e9;
-    slides.forEach(function(slide, i){
-      var r = slide.getBoundingClientRect();
-      var cy = r.top + r.height * 0.32;
-      if (cy >= topL && cy <= botL) {
-        slide.classList.add('deck-headline-played');
-        var d = Math.abs(cy - vh * 0.5);
-        if (d < bestDist) {
-          bestDist = d;
-          bestI = i;
-        }
-      }
-    });
-    if (bestI >= 0) setActive(bestI);
+
+  /* ── Determine restore target ── */
+  function restoreIndex(){
+    /* 1. Explicit URL hash */
+    var hash = (window.location.hash || '').replace(/^#/,'');
+    var hi = idToIndex(hash);
+    if (hi >= 0) return hi;
+    /* 2. sessionStorage (same tab, survives reload) */
+    var si = idToIndex(savedSlideId());
+    if (si >= 0) return si;
+    /* 3. Cover */
+    return 0;
   }
+
+  /* ── Restore on load ── */
+  var target = restoreIndex();
+  /* Use rAF so layout is complete before we scroll */
   requestAnimationFrame(function(){
-    requestAnimationFrame(refreshDeckHeadlinesFromLayout);
+    requestAnimationFrame(function(){
+      jumpTo(target);
+    });
   });
-  window.addEventListener('hashchange', refreshDeckHeadlinesFromLayout, { passive: true });
+
+  /* ── IntersectionObserver: update counter + save while user scrolls ── */
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        var slide = entry.target;
+        if (!reduced && !slide.classList.contains('deck-headline-played'))
+          slide.classList.add('deck-headline-played');
+        var idx = Array.prototype.indexOf.call(slides, slide);
+        if (idx >= 0) setActive(idx);
+      });
+    }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+    slides.forEach(function(s){ io.observe(s); });
+  }
+
+  /* ── Save on pagehide (fires before tab/browser close and before reload) ── */
+  window.addEventListener('pagehide', function(){
+    var i = visibleIndex();
+    if (slides[i] && slides[i].id) saveSlide(slides[i].id);
+  }, { passive: true });
+
+  /* ── Outline panel: close on click ── */
   document.querySelectorAll('.deck-outline-panel a').forEach(function(a){
     a.addEventListener('click', function(){
       var d = a.closest('details');
       if (d) d.removeAttribute('open');
     });
   });
+
+  /* ── Hash links: save + refresh ── */
+  window.addEventListener('hashchange', function(){
+    var h = (window.location.hash || '').replace(/^#/,'');
+    var hi = idToIndex(h);
+    if (hi >= 0){ markPlayed(hi); setActive(hi); }
+  }, { passive: true });
+
+  /* ── Keyboard navigation ── */
   document.addEventListener('keydown', function(e){
     var tag = document.activeElement && document.activeElement.tagName;
-    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || document.activeElement && document.activeElement.closest('details[open]')) return;
-    var list = Array.prototype.slice.call(slides);
-    var idx = list.findIndex(function(s){
-      var r = s.getBoundingClientRect();
-      return r.top < window.innerHeight * 0.55 && r.bottom > window.innerHeight * 0.2;
-    });
-    if (idx < 0) idx = 0;
-    var smooth = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    if (document.activeElement && document.activeElement.closest('details[open]')) return;
+    var smooth = !reduced;
+    var idx = visibleIndex();
+    if (e.key === 'ArrowDown' || e.key === 'PageDown'){
       e.preventDefault();
-      if (idx < list.length - 1) list[idx + 1].scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' });
-    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      if (idx < n - 1) slides[idx + 1].scrollIntoView({ behavior: smooth ? 'smooth' : 'instant', block: 'start' });
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp'){
       e.preventDefault();
-      if (idx > 0) list[idx - 1].scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' });
+      if (idx > 0) slides[idx - 1].scrollIntoView({ behavior: smooth ? 'smooth' : 'instant', block: 'start' });
     }
   });
+})();
+
+(function(){
+  var hero = document.getElementById('deck-cover');
+  if (!hero) return;
+  var line2 = hero.querySelector('.hero-line--2');
+  var t1 = hero.querySelector('.hero-line--1 .hero-type');
+  var t2 = hero.querySelector('.hero-line--2 .hero-type');
+  var c1 = hero.querySelector('.hero-line--1 .hero-caret');
+  var c2 = hero.querySelector('.hero-line--2 .hero-caret');
+  if (!t1 || !t2) return;
+  var full1 = (t1.getAttribute('data-full') || '').trim();
+  var full2 = (t2.getAttribute('data-full') || '').trim();
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ran = false;
+  function fillStatic(){
+    t1.textContent = full1;
+    t2.textContent = full2;
+    if (c1) c1.classList.add('hero-caret-off');
+    if (c2) c2.classList.add('hero-caret-off');
+    if (line2) line2.classList.add('is-shining');
+  }
+  function typeLine(target, caret, full, charDelay, done){
+    target.textContent = '';
+    var i = 0;
+    function tick(){
+      if (i < full.length) {
+        target.textContent += full.charAt(i);
+        i++;
+        window.setTimeout(tick, charDelay);
+      } else {
+        if (caret) caret.classList.add('hero-caret-off');
+        if (done) done();
+      }
+    }
+    tick();
+  }
+  function run(){
+    if (ran) return;
+    ran = true;
+    if (reduced) {
+      fillStatic();
+      return;
+    }
+    t1.textContent = '';
+    t2.textContent = '';
+    if (line2) line2.classList.remove('is-shining');
+    if (c1) c1.classList.remove('hero-caret-off');
+    if (c2) c2.classList.add('hero-caret-off');
+    typeLine(t1, c1, full1, 72, function(){
+      if (c2) c2.classList.remove('hero-caret-off');
+      typeLine(t2, c2, full2, 78, function(){
+        if (line2) line2.classList.add('is-shining');
+      });
+    });
+  }
+  if (reduced) {
+    fillStatic();
+    return;
+  }
+  var motion = document.documentElement.classList.contains('deck-headline-motion');
+  if (!motion) {
+    requestAnimationFrame(function(){
+      requestAnimationFrame(run);
+    });
+    return;
+  }
+  var mo = new MutationObserver(function(){
+    if (!hero.classList.contains('deck-headline-played')) return;
+    mo.disconnect();
+    requestAnimationFrame(function(){
+      requestAnimationFrame(run);
+    });
+  });
+  mo.observe(hero, { attributes: true, attributeFilter: ['class'] });
+  if (hero.classList.contains('deck-headline-played')) {
+    requestAnimationFrame(function(){
+      requestAnimationFrame(run);
+    });
+  }
 })();
 
 (function(){
