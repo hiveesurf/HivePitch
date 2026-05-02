@@ -728,8 +728,9 @@ html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-card
 
 /* ─── PROCESS ─── */
 .process-section{background:var(--bg)}
-.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem}
-@media(max-width:900px){.process-steps{grid-template-columns:1fr 1fr}}
+.process-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;margin-top:2.5rem}
+@media(max-width:1100px){.process-steps{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.process-steps{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.process-steps{grid-template-columns:1fr}}
 .step{
   background:var(--tint);border:1px solid var(--border);
@@ -1437,7 +1438,7 @@ footer{
   <div class="section-inner">
     <span class="s-label">The Process</span>
     <div class="s-title deck-headline">Simple For You.<br><span class="accent">Powerful</span> For Your Brand.</div>
-    <p class="s-body">Give us 15 minutes and a brief. We handle sourcing, vetting, briefing, approvals, posting, and reporting.</p>
+    <p class="s-body">Give us 15 minutes and a brief. We handle sourcing, scripting, vetting, briefing, approvals, posting, and reporting.</p>
 
     <div class="process-steps">
       <div class="step">
@@ -1447,16 +1448,21 @@ footer{
       </div>
       <div class="step">
         <div class="step-num">02</div>
+        <h3>Script & Strategy</h3>
+        <p>We write the content script tailored to your brand voice — so creators say exactly what your brand needs.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
         <h3>Creator Match</h3>
         <p>3 vetted creators. You approve before we contact anyone.</p>
       </div>
       <div class="step">
-        <div class="step-num">03</div>
+        <div class="step-num">04</div>
         <h3>Content & Live</h3>
         <p>Creators shoot. We review. You approve. Reels go live.</p>
       </div>
       <div class="step">
-        <div class="step-num">04</div>
+        <div class="step-num">05</div>
         <h3>Results Report</h3>
         <p>Reach, views, engagement, CPM. Proof it worked.</p>
       </div>
@@ -1499,7 +1505,7 @@ footer{
             <td>Weeks</td>
           </tr>
           <tr>
-            <td>Large Mumbai Agency</td>
+            <td>Large Agency</td>
             <td>₹1L–₹5L</td>
             <td><span class="check">✓ Full</span></td>
             <td><span class="check">✓ Full</span></td>
@@ -2125,7 +2131,7 @@ footer{
     slide = pptx.addSlide();
     slide.addText('Process', { x:0.5, y:0.45, w:9, h:0.5, fontSize:28, bold:true, color:blue });
     slide.addText(
-      '1. Brand brief · 2. Creator match · 3. Content & live · 4. Results report — fully managed.',
+      '1. Brand brief · 2. Script & strategy · 3. Creator match · 4. Content & live · 5. Results report — fully managed.',
       { x:0.5, y:1.05, w:9, h:2.2, fontSize:15, color:ink, valign:'top' }
     );
     slide = pptx.addSlide();
