@@ -1779,12 +1779,20 @@ footer{
   if ('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
-        if (!entry.isIntersecting) return;
         var slide = entry.target;
-        if (!reduced && !slide.classList.contains('deck-headline-played'))
-          slide.classList.add('deck-headline-played');
-        var idx = Array.prototype.indexOf.call(slides, slide);
-        if (idx >= 0) setActive(idx);
+        if (entry.isIntersecting){
+          /* slide entered → play animations */
+          if (!reduced && !slide.classList.contains('deck-headline-played'))
+            slide.classList.add('deck-headline-played');
+          var idx = Array.prototype.indexOf.call(slides, slide);
+          if (idx >= 0) setActive(idx);
+        } else {
+          /* slide left → reset so animations replay next visit */
+          if (!reduced){
+            slide.classList.remove('deck-headline-played');
+            try { slide.dispatchEvent(new CustomEvent('deck:exit')); } catch(e){}
+          }
+        }
       });
     }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
     slides.forEach(function(s){ io.observe(s); });
@@ -1841,6 +1849,7 @@ footer{
   var full2 = (t2.getAttribute('data-full') || '').trim();
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ran = false;
+  var typeTimer = null;
   function fillStatic(){
     t1.textContent = full1;
     t2.textContent = full2;
@@ -1848,14 +1857,24 @@ footer{
     if (c2) c2.classList.add('hero-caret-off');
     if (line2) line2.classList.add('is-shining');
   }
+  function resetHero(){
+    ran = false;
+    if (typeTimer){ clearTimeout(typeTimer); typeTimer = null; }
+    t1.textContent = '';
+    t2.textContent = '';
+    if (line2) line2.classList.remove('is-shining');
+    if (c1) c1.classList.add('hero-caret-off');
+    if (c2) c2.classList.add('hero-caret-off');
+  }
   function typeLine(target, caret, full, charDelay, done){
     target.textContent = '';
     var i = 0;
     function tick(){
+      if (!ran){ return; } /* aborted */
       if (i < full.length) {
         target.textContent += full.charAt(i);
         i++;
-        window.setTimeout(tick, charDelay);
+        typeTimer = window.setTimeout(tick, charDelay);
       } else {
         if (caret) caret.classList.add('hero-caret-off');
         if (done) done();
@@ -1866,45 +1885,33 @@ footer{
   function run(){
     if (ran) return;
     ran = true;
-    if (reduced) {
-      fillStatic();
-      return;
-    }
+    if (reduced) { fillStatic(); return; }
     t1.textContent = '';
     t2.textContent = '';
     if (line2) line2.classList.remove('is-shining');
     if (c1) c1.classList.remove('hero-caret-off');
     if (c2) c2.classList.add('hero-caret-off');
     typeLine(t1, c1, full1, 72, function(){
+      if (!ran) return;
       if (c2) c2.classList.remove('hero-caret-off');
       typeLine(t2, c2, full2, 78, function(){
+        if (!ran) return;
         if (line2) line2.classList.add('is-shining');
       });
     });
   }
-  if (reduced) {
-    fillStatic();
-    return;
-  }
-  var motion = document.documentElement.classList.contains('deck-headline-motion');
-  if (!motion) {
-    requestAnimationFrame(function(){
-      requestAnimationFrame(run);
-    });
-    return;
-  }
+  if (reduced) { fillStatic(); return; }
+  /* Listen for slide-exit to reset so animation replays next visit */
+  hero.addEventListener('deck:exit', function(){
+    resetHero();
+  });
   var mo = new MutationObserver(function(){
     if (!hero.classList.contains('deck-headline-played')) return;
-    mo.disconnect();
-    requestAnimationFrame(function(){
-      requestAnimationFrame(run);
-    });
+    requestAnimationFrame(function(){ requestAnimationFrame(run); });
   });
   mo.observe(hero, { attributes: true, attributeFilter: ['class'] });
-  if (hero.classList.contains('deck-headline-played')) {
-    requestAnimationFrame(function(){
-      requestAnimationFrame(run);
-    });
+  if (hero.classList.contains('deck-headline-played')){
+    requestAnimationFrame(function(){ requestAnimationFrame(run); });
   }
 })();
 
@@ -1922,6 +1929,22 @@ footer{
     return;
   }
   var started = false;
+  var truthTimer = null;
+  var topBlock  = section.querySelector('.truth-block--top');
+  var deadText  = section.querySelector('.truth-dead-text');
+  var deadStroke = section.querySelector('.truth-dead-stroke');
+
+  function resetTruth(){
+    started = false;
+    if (truthTimer){ clearTimeout(truthTimer); truthTimer = null; }
+    wrongEl.textContent = '';
+    if (caret) caret.classList.remove('is-done');
+    /* re-arm CSS animations by forcing reflow */
+    if (topBlock){ topBlock.style.animation = 'none'; topBlock.offsetHeight; topBlock.style.animation = ''; }
+    if (deadText){ deadText.style.animation = 'none'; deadText.offsetHeight; deadText.style.animation = ''; }
+    if (deadStroke){ deadStroke.style.cssText += ''; }
+  }
+
   function startTyping(){
     if (started) return;
     started = true;
@@ -1929,16 +1952,20 @@ footer{
     var i = 0;
     var charMs = 140;
     function tick(){
+      if (!started) return;
       if (i < full.length) {
         wrongEl.textContent += full.charAt(i);
         i++;
-        window.setTimeout(tick, charMs);
+        truthTimer = window.setTimeout(tick, charMs);
       } else if (caret) {
         caret.classList.add('is-done');
       }
     }
-    window.setTimeout(tick, 2180);
+    truthTimer = window.setTimeout(tick, 2180);
   }
+
+  section.addEventListener('deck:exit', resetTruth);
+
   function onTruthPlayed(){
     if (!section.classList.contains('deck-headline-played')) return;
     startTyping();
