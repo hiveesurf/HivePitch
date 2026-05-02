@@ -728,13 +728,17 @@ html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-card
 
 /* ─── PROCESS ─── */
 .process-section{background:var(--bg)}
-.process-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;margin-top:2.5rem}
+.process-steps{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;margin-top:2.5rem;
+  perspective:1200px;perspective-origin:50% 40%
+}
 @media(max-width:1100px){.process-steps{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:700px){.process-steps{grid-template-columns:1fr 1fr}}
 @media(max-width:500px){.process-steps{grid-template-columns:1fr}}
 .step{
   background:var(--tint);border:1px solid var(--border);
-  border-radius:6px;padding:1.75rem 1.5rem;position:relative
+  border-radius:6px;padding:1.75rem 1.5rem;position:relative;
+  transform-style:preserve-3d
 }
 .step-num{
   font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:.02em;
@@ -746,28 +750,28 @@ html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-card
 }
 .step p{font-size:.85rem;color:var(--muted);line-height:1.55}
 
-@keyframes stepCardIn{
-  from{opacity:0;transform:translateY(1.6rem)}
-  to{opacity:1;transform:translateY(0)}
+@keyframes stepCardFlip{
+  0%{opacity:0;transform:rotateY(-88deg)}
+  100%{opacity:1;transform:rotateY(0deg)}
 }
 html.deck-headline-motion .process-section.deck-slide:not(.deck-headline-played) .process-steps .step{
   opacity:0;
-  transform:translateY(1.6rem)
+  transform:rotateY(-88deg)
 }
 html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(1){
-  animation:stepCardIn .6s cubic-bezier(0.22,1,0.36,1) .15s forwards
+  animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .15s forwards
 }
 html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(2){
-  animation:stepCardIn .6s cubic-bezier(0.22,1,0.36,1) .35s forwards
+  animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .35s forwards
 }
 html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(3){
-  animation:stepCardIn .6s cubic-bezier(0.22,1,0.36,1) .55s forwards
+  animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .55s forwards
 }
 html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(4){
-  animation:stepCardIn .6s cubic-bezier(0.22,1,0.36,1) .75s forwards
+  animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .75s forwards
 }
 html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(5){
-  animation:stepCardIn .6s cubic-bezier(0.22,1,0.36,1) .95s forwards
+  animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .95s forwards
 }
 @media (prefers-reduced-motion: reduce){
   html.deck-headline-motion .process-section .process-steps .step{
