@@ -702,11 +702,29 @@ html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-card
 .roi-section{background:var(--surface)}
 .roi-title-row{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:3rem}
 @media(max-width:800px){.roi-title-row{grid-template-columns:1fr}}
-.roi-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.roi-cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
+  perspective:1200px;
+  perspective-origin:50% 35%
+}
 @media(max-width:900px){.roi-cards{grid-template-columns:1fr}}
 .roi-card{
   background:var(--card);border:1px solid var(--border);
-  border-radius:8px;overflow:hidden
+  border-radius:8px;overflow:visible;
+  transform-style:preserve-3d
+}
+html.deck-headline-motion .roi-section.deck-slide:not(.deck-headline-played) .roi-cards .roi-card{
+  opacity:0;
+  transform:rotateY(-88deg)
+}
+html.deck-headline-motion .roi-section.deck-slide.deck-headline-played .roi-cards .roi-card:nth-child(1){
+  animation:aboutAcardFlipIn .68s cubic-bezier(0.22,1,0.36,1) .15s forwards
+}
+html.deck-headline-motion .roi-section.deck-slide.deck-headline-played .roi-cards .roi-card:nth-child(2){
+  animation:aboutAcardFlipIn .68s cubic-bezier(0.22,1,0.36,1) .4s forwards
+}
+html.deck-headline-motion .roi-section.deck-slide.deck-headline-played .roi-cards .roi-card:nth-child(3){
+  animation:aboutAcardFlipIn .68s cubic-bezier(0.22,1,0.36,1) .65s forwards
 }
 .roi-card.featured{border-color:var(--accent);box-shadow:var(--shadow)}
 .roi-card-head{padding:1.5rem;background:var(--tint-2);border-bottom:1px solid var(--border)}
@@ -774,7 +792,8 @@ html.deck-headline-motion .process-section.deck-slide.deck-headline-played .proc
   animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .95s forwards
 }
 @media (prefers-reduced-motion: reduce){
-  html.deck-headline-motion .process-section .process-steps .step{
+  html.deck-headline-motion .process-section .process-steps .step,
+  html.deck-headline-motion .roi-section .roi-cards .roi-card{
     opacity:1!important;
     transform:none!important;
     animation:none!important
@@ -1078,7 +1097,8 @@ footer{
   .format-section.tinted,.format-section.plain,.hero-bg,.cta-section{background:#fff !important}
   .about-section .about-cards .acard,
   .ugc-section .ugc-cards .ugc-card,
-  .process-section .process-steps .step{
+  .process-section .process-steps .step,
+  .roi-section .roi-cards .roi-card{
     opacity:1!important;
     transform:none!important;
     animation:none!important
