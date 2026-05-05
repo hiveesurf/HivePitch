@@ -115,6 +115,10 @@ nav{
   color:#fff;
   border-color:var(--brand);
 }
+.btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
 .hero-wrap{
   width:100%;
   border:1px solid var(--line);
@@ -162,8 +166,10 @@ nav{
   border-radius:10px;
   overflow:hidden;
   background:var(--surface);
+  transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
 }
 .roi-card.featured{border-color:var(--brand);box-shadow:0 0 0 1px color-mix(in srgb,var(--brand) 40%,transparent) inset}
+.roi-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
 .roi-top{padding:1.1rem;background:var(--card)}
 .roi-top .pkg{font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .roi-top .cost{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;line-height:1;margin-top:.35rem}
@@ -198,8 +204,10 @@ nav{
   background:var(--surface);
   min-height:240px;
   padding:1rem;
+  transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
 }
 .client-card.featured{border-color:var(--brand);box-shadow:var(--shadow)}
+.client-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
 .handle{
   font-family:'Barlow Condensed',sans-serif;
   font-size:1.9rem;
@@ -263,17 +271,23 @@ nav{
   text-transform:uppercase;
   font-weight:700;
 }
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+}
 table{
   width:100%;
   border-collapse:collapse;
   border:1px solid var(--line);
   border-radius:10px;
   overflow:hidden;
+  min-width:760px;
 }
 th,td{
   padding:.75rem .8rem;
   border-bottom:1px solid var(--line);
   text-align:left;
+  vertical-align:middle;
 }
 th{
   background:var(--card);
@@ -284,6 +298,7 @@ th{
 }
 tbody tr:last-child td{border-bottom:none}
 tbody tr.highlight{background:color-mix(in srgb,var(--brand) 10%,var(--surface));font-weight:700}
+.num-col{text-align:right;font-variant-numeric:tabular-nums}
 .steps{
   display:grid;
   grid-template-columns:repeat(5,1fr);
@@ -294,7 +309,9 @@ tbody tr.highlight{background:color-mix(in srgb,var(--brand) 10%,var(--surface))
   border-radius:10px;
   background:var(--surface);
   padding:1rem;
+  transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
 }
+.step:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
 .num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--brand)}
 .step h3{
   margin:.42rem 0;
@@ -317,9 +334,19 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
 .animate{
   opacity:0;
   transform:translateY(14px);
-  transition:opacity .55s ease,transform .55s ease;
+  transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);
 }
 .animate.show{opacity:1;transform:translateY(0)}
+.stagger{
+  opacity:0;
+  transform:translateY(16px) scale(.985);
+  transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);
+  transition-delay:var(--d,0ms);
+}
+.stagger.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
 @media (max-width:1050px){
   .hero-meta,.stats{grid-template-columns:repeat(2,1fr)}
   .roi-grid,.cards-3,.steps{grid-template-columns:1fr}
@@ -327,6 +354,34 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
 }
 @media (max-width:820px){
   .nav-links{display:none}
+}
+@media (max-width:760px){
+  th,td{padding:.62rem .58rem}
+  table{min-width:640px}
+  .title{font-size:clamp(2.2rem,10vw,4rem)}
+}
+@media print{
+  html{scroll-snap-type:none}
+  body{
+    background:#fff !important;
+    color:#10162f !important;
+  }
+  nav{position:static;border-bottom:1px solid #d9dff0;background:#fff !important}
+  .btn{display:none !important}
+  .deck-slide{
+    min-height:auto !important;
+    padding:1.5rem 0 !important;
+    border-bottom:1px solid #d9dff0 !important;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .animate{
+    opacity:1 !important;
+    transform:none !important;
+  }
+  .hero-wrap,.roi-card,.client-card,.stat,.step,.cta,table{
+    box-shadow:none !important;
+  }
 }
 </style>
 </head>
@@ -342,6 +397,8 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-actions">
+      <button id="downloadPdf" class="btn" type="button">Download PDF</button>
+      <button id="downloadPpt" class="btn" type="button">Download PPT</button>
       <button id="themeToggle" class="btn" type="button">Light/Dark</button>
       <a class="btn btn-primary" href="#contact">Start</a>
     </div>
@@ -372,8 +429,8 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
       <p class="muted">Every rupee has a return attached. Conservative benchmarks based on India 2026 industry averages.</p>
     </div>
     <div class="roi-grid">
-      <article class="roi-card">
-        <div class="roi-top"><div class="pkg">Entry - Spark</div><div class="cost">Rs25,000</div><div class="sub">investment</div></div>
+      <article class="roi-card stagger">
+        <div class="roi-top"><div class="pkg">Entry - Spark</div><div class="cost">Rs 25,000+</div><div class="sub">investment</div></div>
         <div class="roi-mid">
           <div class="row"><span class="left">Combined Followers</span><span class="right">~50,000</span></div>
           <div class="row"><span class="left">Video Views</span><span class="right">15K - 25K</span></div>
@@ -382,8 +439,8 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
         </div>
         <div class="roi-foot"><div class="lbl">Conservative ROI</div><div class="val">2x - 3x</div><p>Rs500 AOV funnel can return Rs60K+ on Rs25K spend.</p></div>
       </article>
-      <article class="roi-card featured">
-        <div class="roi-top"><div class="pkg">Growth - Grow</div><div class="cost">Rs40,000</div><div class="sub">investment</div></div>
+      <article class="roi-card featured stagger">
+        <div class="roi-top"><div class="pkg">Growth - Grow</div><div class="cost">Rs 40,000+</div><div class="sub">investment</div></div>
         <div class="roi-mid">
           <div class="row"><span class="left">Combined Followers</span><span class="right">~1.2 Lakh</span></div>
           <div class="row"><span class="left">Video Views</span><span class="right">48K - 90K</span></div>
@@ -392,8 +449,8 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
         </div>
         <div class="roi-foot"><div class="lbl">Conservative ROI</div><div class="val">3x - 4x</div><p>Steady conversion can return Rs1.5L+ on Rs40K spend.</p></div>
       </article>
-      <article class="roi-card">
-        <div class="roi-top"><div class="pkg">Premium - Dominate</div><div class="cost">Rs70,000</div><div class="sub">investment</div></div>
+      <article class="roi-card stagger">
+        <div class="roi-top"><div class="pkg">Premium - Dominate</div><div class="cost">Rs 70,000+</div><div class="sub">investment</div></div>
         <div class="roi-mid">
           <div class="row"><span class="left">Combined Followers</span><span class="right">~2.1 Lakh</span></div>
           <div class="row"><span class="left">Video Views</span><span class="right">84K - 1.8L</span></div>
@@ -412,18 +469,18 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
     <h2 class="title">BRANDS WE<br><span class="accent">MANAGE.</span></h2>
     <p class="muted" style="margin:.4rem 0 1.1rem">Active campaigns running now with real handles and performance proof.</p>
     <div class="cards-3">
-      <article class="client-card featured">
+      <article class="client-card featured stagger">
         <div class="handle">@funkylilmunchkinspro</div>
         <p style="color:var(--brand);font-weight:700">2+ influencers delivered</p>
         <a class="reel" href="https://www.instagram.com/p/DU5ig02ksts/" target="_blank" rel="noopener"><span>11K plays - 240+ likes</span><span>Reel 1</span></a>
         <a class="reel" href="https://www.instagram.com/reels/DWrWBORk4mG/" target="_blank" rel="noopener"><span>35K plays - 800+ likes</span><span>Reel 2</span></a>
       </article>
-      <article class="client-card">
+      <article class="client-card stagger">
         <div class="handle">@vm.metals_</div>
         <p style="color:var(--brand);font-weight:700">Active campaign</p>
         <span class="status">Campaign in progress</span>
       </article>
-      <article class="client-card">
+      <article class="client-card stagger">
         <div class="handle">@carnalysys.pdi</div>
         <p style="color:var(--brand);font-weight:700">Active campaign</p>
         <span class="status">Campaign in progress</span>
@@ -442,16 +499,18 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
       <div class="stat"><div class="v">5-7</div><div class="k">Days brief to live</div></div>
       <div class="stat"><div class="v">0%</div><div class="k">Fake followers</div></div>
     </div>
+    <div class="table-wrap">
     <table>
       <thead>
         <tr><th>Agency Type</th><th>Price</th><th>Vetting</th><th>Reporting</th><th>Speed</th></tr>
       </thead>
       <tbody>
-        <tr><td>Freelance Outreach</td><td>Rs5K-Rs15K</td><td>None</td><td>None</td><td>Weeks</td></tr>
-        <tr><td>Large Agency</td><td>Rs1L-Rs5L</td><td>Full</td><td>Full</td><td>3-6 Weeks</td></tr>
-        <tr class="highlight"><td>Hivesurf</td><td>Rs25K-Rs70K</td><td>Full Audit</td><td>Full Dashboard</td><td>5-7 Days</td></tr>
+        <tr><td>Freelance Outreach</td><td class="num-col">Rs 5K-Rs 15K</td><td>None</td><td>None</td><td class="num-col">Weeks</td></tr>
+        <tr><td>Large Agency</td><td class="num-col">Rs 1L-Rs 5L</td><td>Full</td><td>Full</td><td class="num-col">3-6 Weeks</td></tr>
+        <tr class="highlight"><td>Hivesurf</td><td class="num-col">Rs 25K-Rs 70K</td><td>Full Audit</td><td>Full Dashboard</td><td class="num-col">5-7 Days</td></tr>
       </tbody>
     </table>
+    </div>
   </div>
 </section>
 
@@ -461,11 +520,11 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
     <h2 class="title">SIMPLE FOR YOU.<br><span class="accent">POWERFUL</span> FOR YOUR BRAND.</h2>
     <p class="muted" style="margin:.6rem 0 1.2rem;max-width:760px">Give us a short brief and we handle sourcing, scripting, vetting, briefing, approvals, posting, and reporting.</p>
     <div class="steps">
-      <article class="step"><div class="num">01</div><h3>Brand Brief</h3><p>15-minute call. Product, audience, goals.</p></article>
-      <article class="step"><div class="num">02</div><h3>Script & Strategy</h3><p>We craft script direction aligned to your category and buying triggers.</p></article>
-      <article class="step"><div class="num">03</div><h3>Creator Match</h3><p>Three vetted creators. You approve before outreach starts.</p></article>
-      <article class="step"><div class="num">04</div><h3>Content & Live</h3><p>Creators shoot. We review and refine. Reels go live.</p></article>
-      <article class="step"><div class="num">05</div><h3>Results Report</h3><p>Reach, views, engagement, CPM, and ROI reporting.</p></article>
+      <article class="step stagger"><div class="num">01</div><h3>Brand Brief</h3><p>15-minute call. Product, audience, goals.</p></article>
+      <article class="step stagger"><div class="num">02</div><h3>Script & Strategy</h3><p>We craft script direction aligned to your category and buying triggers.</p></article>
+      <article class="step stagger"><div class="num">03</div><h3>Creator Match</h3><p>Three vetted creators. You approve before outreach starts.</p></article>
+      <article class="step stagger"><div class="num">04</div><h3>Content & Live</h3><p>Creators shoot. We review and refine. Reels go live.</p></article>
+      <article class="step stagger"><div class="num">05</div><h3>Results Report</h3><p>Reach, views, engagement, CPM, and ROI reporting.</p></article>
     </div>
   </div>
 </section>
@@ -509,8 +568,14 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
 
 (function(){
   var items = document.querySelectorAll('.animate');
+  var staggerItems = document.querySelectorAll('.stagger');
+  staggerItems.forEach(function(el, idx){
+    var delay = (idx % 6) * 85;
+    el.style.setProperty('--d', delay + 'ms');
+  });
   if (!('IntersectionObserver' in window)){
     items.forEach(function(el){ el.classList.add('show'); });
+    staggerItems.forEach(function(el){ el.classList.add('show'); });
     return;
   }
   var io = new IntersectionObserver(function(entries){
@@ -519,6 +584,101 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
     });
   }, { threshold: 0.25 });
   items.forEach(function(el){ io.observe(el); });
+  staggerItems.forEach(function(el){ io.observe(el); });
+})();
+
+(function(){
+  var pdfBtn = document.getElementById('downloadPdf');
+  if (pdfBtn){
+    pdfBtn.addEventListener('click', function(){
+      window.print();
+    });
+  }
+
+  var pptBtn = document.getElementById('downloadPpt');
+  if (!pptBtn) return;
+
+  pptBtn.addEventListener('click', function(){
+    if (pptBtn.disabled) return;
+    pptBtn.disabled = true;
+    pptBtn.textContent = 'Building PPT...';
+
+    loadPptx(function(err, PptxGenJS){
+      if (err){
+        alert(err);
+        pptBtn.disabled = false;
+        pptBtn.textContent = 'Download PPT';
+        return;
+      }
+      try{
+        buildDeckPpt(PptxGenJS);
+      }catch(e){
+        alert('Could not build PPT: ' + (e && e.message ? e.message : String(e)));
+      }
+      pptBtn.disabled = false;
+      pptBtn.textContent = 'Download PPT';
+    });
+  });
+
+  function loadPptx(cb){
+    if (window.__hivesurfPptx) return cb(null, window.__hivesurfPptx);
+    import('https://esm.sh/pptxgenjs@3.12.0')
+      .then(function(mod){
+        var ctor = mod && mod.default;
+        if (typeof ctor !== 'function') return cb('PPT library loaded but export format was unexpected.');
+        window.__hivesurfPptx = ctor;
+        cb(null, ctor);
+      })
+      .catch(function(e){
+        cb('Failed to load PPT library. Check internet and try again.');
+      });
+  }
+
+  function buildDeckPpt(PptxGenJS){
+    var pptx = new PptxGenJS();
+    pptx.layout = 'LAYOUT_WIDE';
+    pptx.author = 'Hivesurf';
+    pptx.company = 'Hivesurf';
+    pptx.subject = 'Influencer Marketing Proposal';
+    pptx.title = 'Hivesurf Proposal Deck 2026';
+
+    var blue = '1E5BFF';
+    var dark = '0D1438';
+    var muted = '5F6D95';
+
+    var slide = pptx.addSlide();
+    slide.addText('HIVESURF', {x:0.55,y:0.55,w:4.8,h:0.65,fontSize:36,bold:true,color:blue});
+    slide.addText('Proposal Deck 2026', {x:0.55,y:1.15,w:6,h:0.45,fontSize:18,color:dark,bold:true});
+    slide.addText('Your brand needs measurable ROI', {x:0.55,y:1.7,w:8,h:0.45,fontSize:22,color:dark,bold:true});
+    slide.addText('2x-5x conservative ROI band | 3 creators per package | 5-7 days brief to live', {x:0.55,y:2.4,w:11.8,h:0.4,fontSize:13,color:muted});
+
+    slide = pptx.addSlide();
+    slide.addText('WHAT DOES YOUR MONEY RETURN?', {x:0.55,y:0.4,w:8,h:0.55,fontSize:28,color:dark,bold:true});
+    slide.addText('Spark: Rs 25,000+ -> 2x-3x ROI\nGrow: Rs 40,000+ -> 3x-4x ROI\nDominate: Rs 70,000+ -> 3x-5x ROI', {x:0.55,y:1.15,w:6.3,h:2.1,fontSize:16,color:dark,breakLine:true});
+    slide.addText('Benchmarks include follower mix, projected views, and effective CPM from current campaign baselines.', {x:0.55,y:3.45,w:11.5,h:0.55,fontSize:12,color:muted});
+
+    slide = pptx.addSlide();
+    slide.addText('BRANDS WE MANAGE', {x:0.55,y:0.45,w:6,h:0.55,fontSize:30,color:dark,bold:true});
+    slide.addText('@funkylilmunchkinspro\n11K plays, 240+ likes\n35K plays, 800+ likes\nReel proof: instagram.com/reels/DWrWBORk4mG/', {x:0.55,y:1.2,w:5.8,h:2.4,fontSize:14,color:dark});
+    slide.addText('@vm.metals_ (active campaign)\n@carnalysys.pdi (active campaign)', {x:6.45,y:1.2,w:5,h:1.4,fontSize:14,color:dark});
+
+    slide = pptx.addSlide();
+    slide.addText('HOW WE STACK UP AGAINST THE REST', {x:0.55,y:0.45,w:10.5,h:0.55,fontSize:28,color:dark,bold:true});
+    slide.addText('Freelance outreach: low cost, low control\nLarge agency: high cost, slower execution\nHivesurf: Rs 25K-Rs 70K, full audit, full dashboard, 5-7 days', {x:0.55,y:1.2,w:11,h:2.0,fontSize:14,color:dark});
+    slide.addText('Highlights: 4x-10x ROI average | Rs 120 lowest CPM | 0% fake followers', {x:0.55,y:3.35,w:11,h:0.45,fontSize:13,color:blue,bold:true});
+
+    slide = pptx.addSlide();
+    slide.addText('SIMPLE PROCESS. POWERFUL OUTCOME.', {x:0.55,y:0.45,w:10.5,h:0.55,fontSize:28,color:dark,bold:true});
+    slide.addText('1) Brand Brief\n2) Script & Strategy\n3) Creator Match\n4) Content & Live\n5) Results Report', {x:0.55,y:1.2,w:6,h:2.4,fontSize:16,color:dark});
+    slide.addText('Fully managed execution from strategy to reporting.', {x:0.55,y:3.7,w:7,h:0.4,fontSize:13,color:muted});
+
+    slide = pptx.addSlide();
+    slide.addText('LOCK PLAN. GO LIVE THIS WEEK.', {x:0.55,y:1.1,w:10.5,h:0.75,fontSize:34,color:blue,bold:true});
+    slide.addText('WhatsApp: +91 70083 10868\nEmail: connect@hivesurf.com', {x:0.55,y:2.15,w:7,h:1.1,fontSize:18,color:dark});
+    slide.addText('Hivesurf - Influencer Marketing Proposal Deck 2026', {x:0.55,y:6.6,w:11,h:0.3,fontSize:11,color:muted});
+
+    pptx.writeFile({ fileName: 'Hivesurf-Proposal-Deck-2026.pptx' });
+  }
 })();
 </script>
 </body>
