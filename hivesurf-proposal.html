@@ -1,2215 +1,524 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hivesurf — Influencer Marketing Proposal 2026</title>
+<title>Hivesurf - Proposal Deck 2026</title>
 <link rel="icon" type="image/png" href="assets/hivesurf-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ─── THEME TOKENS ─── */
-:root,
+:root{
+  --bg:#f6f7fc;
+  --surface:#ffffff;
+  --card:#f2f4fb;
+  --line:#d9dff0;
+  --text:#0d1438;
+  --muted:#6f789c;
+  --brand:#1e5bff;
+  --brand-soft:rgba(30,91,255,.11);
+  --shadow:0 12px 34px rgba(30,91,255,.09);
+}
 [data-theme="dark"]{
-  --accent:#1E5BFF;
-  --accent-2:#4D7BFF;
-  --accent-soft:rgba(30,91,255,.12);
-  --accent-strong:rgba(30,91,255,.28);
-  --bg:#06070F;
-  --surface:#0E1124;
-  --card:#141838;
-  --border:#1F2347;
-  --text:#EEF1FA;
-  --muted:#8089AE;
-  --dim:#3B4170;
-  --hairline:rgba(255,255,255,.05);
-  --tint:rgba(255,255,255,.025);
-  --tint-2:rgba(255,255,255,.04);
-  --logo-bg:#FFFFFF;
-  --logo-pad:.25rem .55rem;
-  --logo-radius:6px;
-  --shadow:0 10px 40px rgba(0,0,0,.35);
+  --bg:#090d1f;
+  --surface:#101733;
+  --card:#161e3d;
+  --line:#2b3563;
+  --text:#ebefff;
+  --muted:#99a4cf;
+  --brand:#5a87ff;
+  --brand-soft:rgba(90,135,255,.16);
+  --shadow:0 14px 34px rgba(0,0,0,.45);
 }
-[data-theme="light"]{
-  --accent:#1E5BFF;
-  --accent-2:#4D7BFF;
-  --accent-soft:rgba(30,91,255,.10);
-  --accent-strong:rgba(30,91,255,.22);
-  --bg:#F6F8FF;
-  --surface:#FFFFFF;
-  --card:#FFFFFF;
-  --border:#E2E7F5;
-  --text:#0A0F2C;
-  --muted:#5A6488;
-  --dim:#B4BBD6;
-  --hairline:rgba(10,15,44,.06);
-  --tint:rgba(30,91,255,.025);
-  --tint-2:rgba(30,91,255,.04);
-  --logo-bg:transparent;
-  --logo-pad:0;
-  --logo-radius:0;
-  --shadow:0 10px 30px rgba(30,91,255,.08);
-}
-
-/* ─── BASE ─── */
-*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box;margin:0;padding:0}
 html{
   scroll-behavior:smooth;
   scroll-snap-type:y mandatory;
-  scroll-padding-top:4.5rem;
-}
-@media (prefers-reduced-motion: reduce){
-  html{scroll-snap-type:none;scroll-behavior:auto}
 }
 body{
   font-family:'Barlow',sans-serif;
   background:var(--bg);
   color:var(--text);
-  overflow-x:hidden;
-  font-size:16px;
-  transition:background .25s ease, color .25s ease;
 }
-
-/* Pitch deck: each main block is one viewport slide */
+a{color:inherit}
+.container{max-width:1220px;margin:0 auto;padding:0 1.4rem}
 .deck-slide{
   min-height:100vh;
   min-height:100dvh;
   scroll-snap-align:start;
-  scroll-snap-stop:normal;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
-  box-sizing:border-box;
-}
-.deck-slide > .section-inner{
-  width:100%;
-  max-width:1200px;
-  margin:0 auto;
-  padding:3.25rem 3rem;
-}
-.deck-slide > .cta-inner{
-  width:100%;
-  max-width:900px;
-  margin:0 auto;
-  padding:4rem 2.5rem !important;
-}
-hr.sdiv{display:none!important}
-
-/* ─── DECK NAV (minimal, not “website menu”) ─── */
-nav.deck-nav{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:1rem;
-  padding:.65rem 2rem;
-  background:color-mix(in srgb, var(--bg) 92%, transparent);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  max-width:100%;
-}
-.deck-nav-center{
-  flex:1;
-  display:flex;
-  flex-direction:column;
   align-items:center;
-  justify-content:center;
-  gap:.1rem;
-  min-width:0;
+  padding:5.5rem 0 3rem;
+  border-bottom:1px solid var(--line);
 }
-.deck-kicker{
-  font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%
+.tag{
+  font-size:.72rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--brand);
+  font-weight:700;
 }
-.deck-progress{
-  font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.12em;line-height:1;
-  color:var(--text);display:flex;align-items:baseline;gap:.15rem
-}
-.deck-progress .deck-sep{color:var(--dim);font-size:1rem;letter-spacing:0;padding:0 .08rem}
-.deck-progress #deckCurr{color:var(--accent)}
-details.deck-outline{position:relative;z-index:520}
-.deck-outline summary{
-  list-style:none;cursor:pointer;
-  font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:var(--muted);padding:.4rem .65rem;border:1px solid var(--border);
-  border-radius:4px;background:var(--tint-2);transition:border-color .2s,color .2s
-}
-.deck-outline summary::-webkit-details-marker{display:none}
-.deck-outline summary::after{content:' +'}
-.deck-outline[open] summary::after{content:' −'}
-.deck-outline summary:hover{border-color:var(--accent);color:var(--text)}
-.deck-outline-panel{
-  position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:.4rem;
-  min-width:220px;max-height:min(70vh,28rem);overflow-y:auto;
-  background:var(--surface);border:1px solid var(--border);border-radius:8px;
-  padding:.5rem 0;box-shadow:var(--shadow);z-index:600
-}
-.deck-outline-panel a{
-  display:block;padding:.55rem 1.1rem;font-size:.82rem;color:var(--text);text-decoration:none;
-  border-bottom:1px solid var(--hairline);transition:background .15s
-}
-.deck-outline-panel a:last-child{border-bottom:none}
-.deck-outline-panel a:hover{background:var(--accent-soft);color:var(--accent)}
-.deck-rail{
-  position:fixed;right:1rem;top:50%;transform:translateY(-50%);
-  z-index:400;display:flex;flex-direction:column;gap:.35rem;align-items:center;
-  padding:.5rem .35rem;border-radius:999px;
-  background:color-mix(in srgb, var(--surface) 85%, transparent);
-  border:1px solid var(--border);backdrop-filter:blur(12px)
-}
-.deck-rail a{
-  display:block;width:7px;height:7px;border-radius:50%;
-  background:var(--dim);text-indent:-9999px;overflow:hidden;
-  transition:transform .2s,background .2s,border-color .2s;
-  border:1px solid transparent
-}
-.deck-rail a:hover{background:var(--accent);transform:scale(1.2)}
-.deck-rail a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.deck-rail a.is-active{background:var(--accent);border-color:var(--accent-strong);transform:scale(1.25)}
-@media(max-width:900px){
-  .deck-rail{display:none}
-  .deck-nav-center{display:none}
-}
-@media(max-width:820px){
-  nav.deck-nav{padding:.55rem 1rem}
-}
-
-.nav-logo{
-  display:inline-flex;align-items:center;text-decoration:none;
-  background:var(--logo-bg);padding:var(--logo-pad);border-radius:var(--logo-radius);
-  line-height:0
-}
-.nav-logo img{height:44px;width:auto;display:block}
-.nav-links{display:flex;gap:1.75rem;align-items:center}
-.nav-links a{
-  font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;transition:color .2s
-}
-.nav-links a:hover{color:var(--text)}
-.nav-right{display:flex;align-items:center;gap:1rem;position:relative;z-index:510}
-.theme-toggle{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--tint-2);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  color:var(--text);transition:background .2s,border-color .2s;
-  padding:0
-}
-.theme-toggle:hover{background:var(--accent-soft);border-color:var(--accent-strong)}
-.theme-toggle svg{width:16px;height:16px}
-[data-theme="dark"] .theme-toggle .icon-sun{display:block}
-[data-theme="dark"] .theme-toggle .icon-moon{display:none}
-[data-theme="light"] .theme-toggle .icon-sun{display:none}
-[data-theme="light"] .theme-toggle .icon-moon{display:block}
-.nav-cta{
-  background:var(--accent);color:#fff;padding:.55rem 1.25rem;border-radius:3px;
-  font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  text-decoration:none;transition:background .2s
-}
-.nav-cta:hover{background:var(--accent-2)}
-.nav-downloads{display:flex;align-items:center;gap:.35rem}
-.nav-dl-btn{
-  font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;
-  padding:.38rem .55rem;border-radius:3px;cursor:pointer;border:1px solid var(--border);
-  background:var(--tint-2);color:var(--text);transition:border-color .2s,background .2s
-}
-.nav-dl-btn:hover{border-color:var(--accent);background:var(--accent-soft);color:var(--text)}
-
-/* ─── HERO ─── */
-.hero{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:5.5rem 3rem 4rem;position:relative;overflow:hidden
-}
-.hero-bg{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 80% 60% at 60% 40%, var(--accent-soft) 0%,transparent 60%),
-    radial-gradient(ellipse 50% 40% at 20% 80%, var(--accent-soft) 0%,transparent 60%),
-    var(--bg);
-}
-/* Hero headline motion */
-@keyframes heroFadeUp{
-  from{opacity:0;transform:translateY(1rem)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes deckHeadIn{
-  from{opacity:0;transform:translateY(1.15rem)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes heroLineShine{
-  0%,100%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:.5rem;
-  background:var(--accent-soft);border:1px solid var(--accent-strong);
-  color:var(--accent);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  padding:.4rem 1rem;border-radius:2px;margin-bottom:2rem;width:fit-content;
-  opacity:0
-}
-.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
-/* Hero: animate on load when scroll-driven headlines are off */
-html:not(.deck-headline-motion) .hero-tag{
-  animation:heroFadeUp .75s cubic-bezier(0.22,1,0.36,1) forwards
-}
-.hero h1.hero-title{
+.title{
+  margin-top:.6rem;
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(4rem,13vw,11rem);
-  line-height:.95;letter-spacing:.02em;margin-bottom:.3em;
-  display:flex;flex-direction:column;align-items:flex-start
+  letter-spacing:.03em;
+  line-height:.92;
+  font-size:clamp(2.6rem,6.4vw,5.8rem);
 }
-.hero-line{
-  display:block;
-  min-height:0.98em;
-  color:var(--text)
-}
-.hero-line .hero-type{white-space:nowrap}
-.hero-line--2:not(.is-shining){color:var(--text)}
-.hero-line--2.is-shining{
-  background:linear-gradient(
-    105deg,
-    var(--accent) 0%,
-    var(--accent) 38%,
-    var(--accent-2) 45%,
-    #c8d8ff 50%,
-    var(--accent-2) 55%,
-    var(--accent) 62%,
-    var(--accent) 100%
-  );
-  background-size:220% auto;
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  color:transparent;
-  padding-bottom:.02em;
-  animation:heroLineShine 3.2s ease-in-out infinite
-}
-.hero-caret{
-  display:inline-block;
-  width:0.055em;
-  min-width:3px;
-  margin-left:.06em;
-  height:0.72em;
-  background:var(--accent);
-  vertical-align:-0.02em;
-  animation:heroCaretBlink .52s step-end infinite
-}
-.hero-caret.hero-caret-off{
-  display:none;
-  width:0;
-  margin:0;
-  animation:none
-}
-@keyframes heroCaretBlink{
-  0%,100%{opacity:1}
-  50%{opacity:0}
-}
-html.deck-headline-motion .hero.deck-slide:not(.deck-headline-played) .hero-tag,
-html.deck-headline-motion .hero.deck-slide:not(.deck-headline-played) .hero-title .hero-line{
-  opacity:0!important;
-  pointer-events:none
-}
-html.deck-headline-motion .hero.deck-slide:not(.deck-headline-played) .hero-line .hero-caret{
-  display:none!important
-}
-html.deck-headline-motion .hero.deck-slide.deck-headline-played .hero-tag{
-  animation:heroFadeUp .75s cubic-bezier(0.22,1,0.36,1) forwards
-}
-html.deck-headline-motion .hero.deck-slide.deck-headline-played .hero-title .hero-line{
-  opacity:1!important
-}
-@media (prefers-reduced-motion: reduce){
-  .hero-tag{
-    animation:none !important;
-    opacity:1 !important;
-    transform:none !important
-  }
-  .hero-title .hero-line{
-    opacity:1!important;
-    pointer-events:auto!important
-  }
-  .hero-line--2.is-shining,
-  .hero-line--2{
-    animation:none !important;
-    background:none !important;
-    -webkit-text-fill-color:var(--accent) !important;
-    color:var(--accent) !important;
-    background-size:auto !important
-  }
-  .hero-caret{display:none!important}
-}
-.hero-sub{
-  font-size:clamp(1rem,1.6vw,1.25rem);font-weight:400;
-  color:var(--muted);max-width:560px;line-height:1.65;margin-bottom:3rem
-}
-.hero-stats{display:flex;gap:3rem;flex-wrap:wrap;margin-bottom:3.5rem}
-.hstat .hval{
-  font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);
-  line-height:1;color:var(--text)
-}
-.hstat .hval span{color:var(--accent)}
-.hstat .hlbl{font-size:.73rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-primary{
-  background:var(--accent);color:#fff;padding:.9rem 2.2rem;
-  font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  border-radius:3px;text-decoration:none;border:none;cursor:pointer;
-  transition:background .2s;display:inline-block
-}
-.btn-primary:hover{background:var(--accent-2)}
-.btn-outline{
-  border:1px solid var(--border);color:var(--text);padding:.9rem 2.2rem;
-  font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  border-radius:3px;text-decoration:none;transition:border-color .2s,background .2s;display:inline-block;background:transparent
-}
-.btn-outline:hover{border-color:var(--accent);background:var(--accent-soft)}
-.hero-scroll{
-  display:flex;align-items:center;gap:.75rem;
-  margin-top:2rem;
-  font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)
-}
-.scroll-line{width:40px;height:1px;background:var(--dim)}
-
-/* ─── SECTION BASE ─── */
-section{position:relative}
-.section-inner{max-width:1200px;margin:0 auto;padding:6rem 3rem}
-.s-label{
-  font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:1.5rem;display:block
-}
-.s-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2.5rem,5vw,4.5rem);
-  line-height:.95;letter-spacing:.02em;margin-bottom:1.5rem;color:var(--text)
-}
-.s-title .accent{color:var(--accent)}
-/* Slide headlines: reveal when slide first scrolls into view (see deck observer) */
-html.deck-headline-motion .deck-slide:not(.deck-headline-played) .deck-headline{
-  opacity:0;
-  transform:translateY(1.15rem)
-}
-html.deck-headline-motion .deck-slide.deck-headline-played .deck-headline{
-  animation:deckHeadIn .78s cubic-bezier(0.22,1,0.36,1) forwards
-}
-.s-body{font-size:1.02rem;color:var(--muted);line-height:1.7;max-width:680px}
-hr.sdiv{border:none;border-top:1px solid var(--border);margin:0}
-
-/* ─── WHO WE ARE ─── */
-.about-section{background:var(--surface)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-@media(max-width:800px){.about-grid{grid-template-columns:1fr}}
-.about-cards{
-  display:grid;grid-template-columns:1fr 1fr;gap:1rem;
-  perspective:1100px;
-  perspective-origin:50% 35%
-}
-.acard{
-  background:var(--tint);border:1px solid var(--border);
-  border-radius:6px;padding:1.5rem;
-  transition:border-color .2s,background .2s;
-  transform-style:preserve-3d
-}
-@keyframes aboutAcardFlipIn{
-  0%{opacity:0;transform:rotateY(-88deg)}
-  100%{opacity:1;transform:rotateY(0deg)}
-}
-html.deck-headline-motion .about-section.deck-slide:not(.deck-headline-played) .about-cards .acard{
-  opacity:0;
-  transform:rotateY(-88deg)
-}
-html.deck-headline-motion .about-section.deck-slide.deck-headline-played .about-cards .acard:nth-child(1){
-  animation:aboutAcardFlipIn .72s cubic-bezier(0.22,1,0.36,1) forwards;
-  animation-delay:.18s
-}
-html.deck-headline-motion .about-section.deck-slide.deck-headline-played .about-cards .acard:nth-child(2){
-  animation:aboutAcardFlipIn .72s cubic-bezier(0.22,1,0.36,1) forwards;
-  animation-delay:.42s
-}
-html.deck-headline-motion .about-section.deck-slide.deck-headline-played .about-cards .acard:nth-child(3){
-  animation:aboutAcardFlipIn .72s cubic-bezier(0.22,1,0.36,1) forwards;
-  animation-delay:.66s
-}
-html.deck-headline-motion .about-section.deck-slide.deck-headline-played .about-cards .acard:nth-child(4){
-  animation:aboutAcardFlipIn .72s cubic-bezier(0.22,1,0.36,1) forwards;
-  animation-delay:.9s
-}
-@media (prefers-reduced-motion: reduce){
-  html.deck-headline-motion .about-section .about-cards .acard,
-  html.deck-headline-motion .ugc-section .ugc-cards .ugc-card{
-    opacity:1!important;
-    transform:none!important;
-    animation:none!important
-  }
-}
-.acard:hover{border-color:var(--accent-strong);background:var(--accent-soft)}
-.acard-icon{
-  width:34px;height:34px;border-radius:6px;
-  background:var(--accent-soft);color:var(--accent);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.05em;
-  margin-bottom:.85rem
-}
-.acard h3{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;color:var(--text)}
-.acard p{font-size:.84rem;color:var(--muted);line-height:1.55}
-.about-tagline{
-  margin-top:2rem;padding:1.25rem 1.5rem;
-  background:var(--accent);border-radius:4px;
-  font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.06em;
-  color:#fff;line-height:1.4
-}
-
-/* ─── TRUTH ─── */
-.truth-section{background:var(--bg)}
-.truth-hero-text{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,7vw,6.5rem);
-  line-height:.95;letter-spacing:.02em;margin-bottom:2rem
-}
-/* Truth headline: line 1 in → “IS DEAD.” then sketch-stroke → type “WRONG.” */
-.truth-headline{display:block}
-.truth-headline .truth-block--top{
-  display:inline-block;
-  opacity:0;
-  transform:translateY(0.65rem)
-}
-.truth-section.deck-headline-played .truth-headline .truth-block--top{
-  animation:truthTopIn .55s cubic-bezier(0.22,1,0.36,1) forwards
-}
-@keyframes truthTopIn{
-  to{opacity:1;transform:translateY(0)}
-}
-.truth-headline .truth-block--dead{
-  position:relative;
-  display:inline-block;
-  margin-top:.06em
-}
-.truth-dead-text{
-  display:inline-block;
-  opacity:0;
-  color:var(--text)
-}
-@keyframes truthDeadReveal{
-  to{opacity:1}
-}
-.truth-dead-stroke{
-  position:absolute;
-  left:-2%;
-  right:-2%;
-  top:50%;
-  height:0.35em;
-  pointer-events:none;
-  transform:translateY(-52%) rotate(-2.5deg);
-  overflow:visible
-}
-.truth-dead-stroke::before{
-  content:'';
-  position:absolute;
+.title .accent{color:var(--brand)}
+.muted{color:var(--muted);line-height:1.68}
+nav{
+  position:fixed;
+  top:0;
   left:0;
-  top:50%;
+  right:0;
+  z-index:50;
+  border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(9px);
+}
+.nav-wrap{
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.8rem;
+}
+.logo{display:inline-flex;align-items:center}
+.logo img{height:42px;width:auto}
+.nav-links{
+  display:flex;
+  gap:1rem;
+  font-size:.74rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:700;
+}
+.nav-actions{display:flex;align-items:center;gap:.55rem}
+.btn{
+  border:1px solid var(--line);
+  border-radius:6px;
+  background:var(--surface);
+  color:var(--text);
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:.5rem .7rem;
+  text-decoration:none;
+  cursor:pointer;
+}
+.btn-primary{
+  background:var(--brand);
+  color:#fff;
+  border-color:var(--brand);
+}
+.hero-wrap{
   width:100%;
-  height:max(5px,0.09em);
-  margin-top:calc(max(5px,0.09em) / -2);
-  border-radius:3px;
-  background:linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--accent) 4%,
-    color-mix(in srgb,var(--accent) 88%,#fff) 22%,
-    var(--accent) 45%,
-    color-mix(in srgb,var(--accent) 75%,#1a1a2e) 72%,
-    var(--accent) 100%
-  );
-  box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 35%,transparent);
-  transform-origin:0 50%;
-  transform:scaleX(0);
-  opacity:.92
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:linear-gradient(180deg,var(--surface),color-mix(in srgb,var(--surface) 75%,var(--brand-soft)));
+  box-shadow:var(--shadow);
+  padding:2rem;
 }
-.truth-section.deck-headline-played .truth-dead-stroke::before{
-  animation:truthStrokeSketch 1.05s cubic-bezier(0.45,0.02,0.2,1) forwards;
-  animation-delay:.95s
+.hero-meta{
+  margin-top:1rem;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.7rem;
 }
-@keyframes truthStrokeSketch{
-  0%{transform:scaleX(0) skewX(-2deg)}
-  35%{transform:scaleX(0.38) skewX(1deg)}
-  55%{transform:scaleX(0.72) skewX(-1deg)}
-  80%{transform:scaleX(0.96) skewX(0.5deg)}
-  100%{transform:scaleX(1) skewX(0deg)}
+.metric{
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:var(--card);
+  padding:.9rem;
 }
-.truth-section.deck-headline-played .truth-dead-text{
-  animation:truthDeadReveal .5s ease forwards,truthDeadCrossed .55s ease forwards;
-  animation-delay:.38s,1.55s
+.metric .v{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.9rem;
+  color:var(--brand);
+  line-height:1;
 }
-@keyframes truthDeadCrossed{
-  from{color:var(--text)}
-  to{color:var(--dim)}
+.metric .k{
+  margin-top:.28rem;
+  font-size:.78rem;
+  color:var(--muted);
 }
-.truth-headline .truth-block--wrong{
-  display:inline-block;
-  margin-top:.12em;
-  min-height:1.05em;
-  vertical-align:top;
-  color:var(--accent)
+.slide-head{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5rem;
+  margin-bottom:1.4rem;
 }
-.truth-wrong-caret{
-  display:inline-block;
-  width:0.07em;
-  min-width:3px;
-  margin-left:.06em;
-  height:0.72em;
-  background:var(--accent);
-  vertical-align:-0.02em;
-  opacity:1;
-  animation:truthCaretBlink .52s step-end infinite
+.roi-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1rem;
 }
-.truth-section.deck-headline-played .truth-wrong-caret.is-done{
-  animation:none;
-  opacity:0;
-  width:0;
-  min-width:0;
-  margin:0;
-  overflow:hidden
-}
-@keyframes truthCaretBlink{
-  0%,100%{opacity:1}
-  50%{opacity:0}
-}
-@media (prefers-reduced-motion: reduce){
-  .truth-headline .truth-block--top{
-    opacity:1!important;
-    transform:none!important;
-    animation:none!important
-  }
-  .truth-dead-text{
-    opacity:1!important;
-    color:var(--dim)!important;
-    animation:none!important
-  }
-  .truth-dead-stroke::before{
-    transform:scaleX(1) skewX(0)!important;
-    animation:none!important
-  }
-  .truth-wrong-caret{display:none!important}
-}
-.truth-verdict{
-  background:var(--accent-soft);border:1px solid var(--accent-strong);border-radius:6px;
-  padding:1.5rem 2rem;
-  font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:600;letter-spacing:.04em;
-  color:var(--text);line-height:1.5;margin-top:1.5rem
-}
-.truth-verdict strong{color:var(--accent)}
-
-/* ─── UGC ─── */
-.ugc-section{background:var(--surface)}
-.ugc-top{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:3rem;align-items:start}
-@media(max-width:800px){.ugc-top{grid-template-columns:1fr}}
-.ugc-cards{display:grid;grid-template-columns:1fr;gap:1.25rem}
-.ugc-card{
-  background:var(--tint);border:1px solid var(--border);
-  border-radius:6px;padding:1.5rem 1.75rem;
-  transition:border-color .2s,background .2s
-}
-.ugc-card:hover{border-color:var(--accent-strong);background:var(--accent-soft)}
-.ugc-card .uc-num{
-  font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--accent);
-  line-height:1;margin-bottom:.4rem
-}
-.ugc-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;color:var(--text)}
-.ugc-card p{font-size:.86rem;color:var(--muted);line-height:1.6}
-@keyframes ugcCardSlideIn{
-  from{opacity:0;transform:translateX(2.25rem)}
-  to{opacity:1;transform:translateX(0)}
-}
-html.deck-headline-motion .ugc-section.deck-slide:not(.deck-headline-played) .ugc-cards .ugc-card{
-  opacity:0;
-  transform:translateX(2.25rem)
-}
-html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-cards .ugc-card:nth-child(1){
-  animation:ugcCardSlideIn .68s cubic-bezier(0.22,1,0.36,1) forwards;
-  animation-delay:.15s
-}
-html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-cards .ugc-card:nth-child(2){
-  animation:ugcCardSlideIn .68s cubic-bezier(0.22,1,0.36,1) forwards;
-  animation-delay:.4s
-}
-html.deck-headline-motion .ugc-section.deck-slide.deck-headline-played .ugc-cards .ugc-card:nth-child(3){
-  animation:ugcCardSlideIn .68s cubic-bezier(0.22,1,0.36,1) forwards;
-  animation-delay:.65s
-}
-.ugc-stat-row{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
-  background:var(--tint);border:1px solid var(--border);
-  border-radius:6px;padding:1.5rem 2rem;margin-top:1.5rem
-}
-@media(max-width:600px){.ugc-stat-row{grid-template-columns:1fr 1fr}}
-.ustat .uv{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--accent);line-height:1}
-.ustat .ul{font-size:.72rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:.2rem;line-height:1.4}
-
-.approach-callout{
-  background:var(--accent-soft);border:1px solid var(--accent-strong);border-radius:6px;
-  padding:1.75rem 2rem;display:flex;flex-direction:column;gap:.5rem
-}
-.approach-callout .ac-label{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
-.approach-callout .ac-h{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.04em;line-height:1.05;color:var(--text)}
-.approach-callout p{font-size:.88rem;color:var(--muted);line-height:1.65;margin-top:.4rem}
-
-/* ─── PACKAGES ─── */
-.pkg-section{background:var(--bg)}
-.pkg-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:3rem}
-@media(max-width:800px){.pkg-intro{grid-template-columns:1fr}}
-.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2rem}
-@media(max-width:900px){.pkg-grid{grid-template-columns:1fr}}
-.pkg-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:8px;overflow:hidden;
-  transition:border-color .2s
-}
-.pkg-card:hover{border-color:var(--accent-strong)}
-.pkg-card.featured{border-color:var(--accent);box-shadow:var(--shadow)}
-.pkg-head{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border)}
-.pkg-tier{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
-.pkg-name{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.05em;line-height:1;color:var(--text)}
-.pkg-card.featured .pkg-name{color:var(--accent)}
-.pkg-price{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:700;color:var(--accent);margin-top:.6rem}
-.pkg-price span{font-size:1rem;color:var(--muted);font-weight:400}
-.pkg-popular{
-  background:var(--accent);color:#fff;
-  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  padding:.25rem .65rem;border-radius:2px;display:inline-block;margin-left:.75rem;
-  vertical-align:middle
-}
-.pkg-ideal{font-size:.82rem;color:var(--muted);line-height:1.55;margin-top:.75rem}
-.pkg-body{padding:1.5rem 2rem}
-.pkg-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:.55rem 0;border-bottom:1px solid var(--hairline);
-  font-size:.87rem
-}
-.pkg-row:last-child{border-bottom:none}
-.pkg-row .pr-label{color:var(--muted);font-size:.8rem;letter-spacing:.03em}
-.pkg-row .pr-val{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:var(--text);letter-spacing:.02em}
-.pkg-foot{padding:1.25rem 2rem;border-top:1px solid var(--border)}
-.pkg-note{font-size:.78rem;color:var(--muted);line-height:1.55;text-align:center;margin-top:1rem}
-.pkg-note a{color:var(--accent);text-decoration:none}
-
-.pricing-callout{
-  background:var(--accent-soft);border:1px solid var(--accent-strong);
-  border-radius:4px;padding:1rem 1.25rem;margin-top:1.25rem;
-  font-size:.85rem;color:var(--text);line-height:1.6
-}
-.pricing-callout strong{color:var(--accent)}
-
-/* ─── ROI ─── */
-.roi-section{background:var(--surface)}
-.roi-title-row{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:3rem}
-@media(max-width:800px){.roi-title-row{grid-template-columns:1fr}}
-.roi-cards{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;
-  perspective:1200px;
-  perspective-origin:50% 35%
-}
-@media(max-width:900px){.roi-cards{grid-template-columns:1fr}}
 .roi-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:8px;overflow:visible;
-  transform-style:preserve-3d
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--surface);
 }
-html.deck-headline-motion .roi-section.deck-slide:not(.deck-headline-played) .roi-cards .roi-card{
-  opacity:0;
-  transform:rotateY(-88deg)
+.roi-card.featured{border-color:var(--brand);box-shadow:0 0 0 1px color-mix(in srgb,var(--brand) 40%,transparent) inset}
+.roi-top{padding:1.1rem;background:var(--card)}
+.roi-top .pkg{font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.roi-top .cost{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;line-height:1;margin-top:.35rem}
+.roi-top .sub{font-size:1.8rem;color:var(--brand);font-family:'Barlow Condensed',sans-serif;font-weight:700}
+.roi-mid{padding:1rem}
+.row{
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  padding:.45rem 0;
+  font-size:.92rem;
 }
-html.deck-headline-motion .roi-section.deck-slide.deck-headline-played .roi-cards .roi-card:nth-child(1){
-  animation:aboutAcardFlipIn .68s cubic-bezier(0.22,1,0.36,1) .15s forwards
+.row:last-child{border-bottom:none}
+.row .left{color:var(--muted)}
+.row .right{font-weight:700}
+.roi-foot{
+  padding:1rem;
+  background:color-mix(in srgb,var(--brand) 11%,var(--surface));
+  border-top:1px solid color-mix(in srgb,var(--brand) 25%,var(--line));
 }
-html.deck-headline-motion .roi-section.deck-slide.deck-headline-played .roi-cards .roi-card:nth-child(2){
-  animation:aboutAcardFlipIn .68s cubic-bezier(0.22,1,0.36,1) .4s forwards
+.roi-foot .lbl{font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.roi-foot .val{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--brand);line-height:1;margin:.25rem 0}
+.roi-foot p{font-size:.8rem;color:var(--muted)}
+.cards-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1rem;
 }
-html.deck-headline-motion .roi-section.deck-slide.deck-headline-played .roi-cards .roi-card:nth-child(3){
-  animation:aboutAcardFlipIn .68s cubic-bezier(0.22,1,0.36,1) .65s forwards
-}
-.roi-card.featured{border-color:var(--accent);box-shadow:var(--shadow)}
-.roi-card-head{padding:1.5rem;background:var(--tint-2);border-bottom:1px solid var(--border)}
-.roi-pkg-tag{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
-.roi-pkg-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.05em;color:var(--text)}
-.roi-pkg-price{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:var(--accent);margin-top:.2rem}
-.roi-body{padding:1.25rem 1.5rem}
-.roi-row{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--hairline);font-size:.85rem}
-.roi-row:last-child{border-bottom:none}
-.roi-row .rrl{color:var(--muted)}
-.roi-row .rrv{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.98rem;color:var(--text)}
-.roi-bottom{
-  padding:1.1rem 1.5rem;
-  background:var(--accent-soft);border-top:1px solid var(--accent-strong)
-}
-.roi-bottom .rb-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
-.roi-bottom .rb-val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.05em;color:var(--accent)}
-.roi-bottom .rb-note{font-size:.74rem;color:var(--muted);line-height:1.5;margin-top:.4rem}
-
-/* ─── PROCESS ─── */
-.process-section{background:var(--bg)}
-.process-steps{
-  display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;margin-top:2.5rem;
-  perspective:1200px;perspective-origin:50% 40%
-}
-@media(max-width:1100px){.process-steps{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:700px){.process-steps{grid-template-columns:1fr 1fr}}
-@media(max-width:500px){.process-steps{grid-template-columns:1fr}}
-.step{
-  background:var(--tint);border:1px solid var(--border);
-  border-radius:6px;padding:1.75rem 1.5rem;position:relative;
-  transform-style:preserve-3d
-}
-.step-num{
-  font-family:'Bebas Neue',sans-serif;font-size:3.5rem;letter-spacing:.02em;
-  color:var(--accent);line-height:1;margin-bottom:.5rem
-}
-.step h3{
-  font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--text);margin-bottom:.5rem
-}
-.step p{font-size:.85rem;color:var(--muted);line-height:1.55}
-
-@keyframes stepCardFlip{
-  0%{opacity:0;transform:rotateY(-88deg)}
-  100%{opacity:1;transform:rotateY(0deg)}
-}
-html.deck-headline-motion .process-section.deck-slide:not(.deck-headline-played) .process-steps .step{
-  opacity:0;
-  transform:rotateY(-88deg)
-}
-html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(1){
-  animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .15s forwards
-}
-html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(2){
-  animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .35s forwards
-}
-html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(3){
-  animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .55s forwards
-}
-html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(4){
-  animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .75s forwards
-}
-html.deck-headline-motion .process-section.deck-slide.deck-headline-played .process-steps .step:nth-child(5){
-  animation:stepCardFlip .68s cubic-bezier(0.22,1,0.36,1) .95s forwards
-}
-@media (prefers-reduced-motion: reduce){
-  html.deck-headline-motion .process-section .process-steps .step,
-  html.deck-headline-motion .roi-section .roi-cards .roi-card{
-    opacity:1!important;
-    transform:none!important;
-    animation:none!important
-  }
-}
-
-/* ─── TRUST ─── */
-.trust-section{background:var(--surface)}
-.trust-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2.5rem}
-@media(max-width:800px){.trust-row{grid-template-columns:1fr 1fr}}
-.tstat{
-  background:var(--tint);border:1px solid var(--border);
-  border-radius:6px;padding:1.5rem;text-align:center
-}
-.tstat .tv{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;color:var(--accent);line-height:1}
-.tstat .tl{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:.4rem;line-height:1.4}
-.compare-wrap{overflow-x:auto}
-.compare-table{
-  width:100%;border-collapse:collapse;font-size:.87rem;min-width:560px
-}
-.compare-table th{
-  padding:.75rem 1.25rem;text-align:left;
-  background:var(--tint);color:var(--muted);
-  font-size:.73rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  border-bottom:1px solid var(--border)
-}
-.compare-table td{padding:.85rem 1.25rem;border-bottom:1px solid var(--hairline);color:var(--muted)}
-.compare-table tr:last-child td{border-bottom:none}
-.compare-table .hs{color:var(--accent);font-weight:700}
-.compare-table tr.hs-row{background:var(--accent-soft)}
-.compare-table tr.hs-row td{color:var(--text)}
-.check{color:var(--accent);font-weight:700}
-.cross{color:var(--dim)}
-
-/* ─── BRANDS WE MANAGE ─── */
-.clients-section{background:var(--bg)}
-.clients-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
-@media(max-width:900px){.clients-grid{grid-template-columns:1fr}}
 .client-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:8px;padding:1.75rem;
-  display:flex;flex-direction:column;gap:1rem;
-  transition:border-color .2s,background .2s;
-  min-height:240px
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--surface);
+  min-height:240px;
+  padding:1rem;
 }
-.client-card:hover{border-color:var(--accent-strong)}
-.client-card.featured{border-color:var(--accent);box-shadow:var(--shadow)}
-.ch-handle{
+.client-card.featured{border-color:var(--brand);box-shadow:var(--shadow)}
+.handle{
   font-family:'Barlow Condensed',sans-serif;
-  font-size:1.35rem;font-weight:700;letter-spacing:.02em;
-  color:var(--text);text-decoration:none;
-  display:inline-flex;align-items:center;gap:.5rem;
-  word-break:break-all
+  font-size:1.9rem;
+  line-height:1.1;
+  margin-bottom:.6rem;
 }
-.ch-handle::before{
-  content:'';display:inline-block;width:18px;height:18px;flex-shrink:0;
-  background:var(--accent);border-radius:5px;
-  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2.16c3.2 0 3.58.012 4.85.07 1.17.054 1.8.25 2.23.413.56.218.96.477 1.38.896.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.43-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.39C1.34 2.69.93 3.36.62 4.15.32 4.91.12 5.79.06 7.06.01 8.33 0 8.74 0 12c0 3.26.01 3.67.07 4.95.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.39 2.13.67.67 1.34 1.08 2.13 1.39.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84Zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.41-10.4a1.44 1.44 0 1 0 0-2.88 1.44 1.44 0 0 0 0 2.88Z'/%3E%3C/svg%3E") center/contain no-repeat;
-          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2.16c3.2 0 3.58.012 4.85.07 1.17.054 1.8.25 2.23.413.56.218.96.477 1.38.896.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.43-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.39C1.34 2.69.93 3.36.62 4.15.32 4.91.12 5.79.06 7.06.01 8.33 0 8.74 0 12c0 3.26.01 3.67.07 4.95.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.39 2.13.67.67 1.34 1.08 2.13 1.39.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 12 18.16 6.16 6.16 0 0 0 12 5.84Zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.41-10.4a1.44 1.44 0 1 0 0-2.88 1.44 1.44 0 0 0 0 2.88Z'/%3E%3C/svg%3E") center/contain no-repeat;
-}
-.ch-handle:hover{color:var(--accent)}
-.ch-summary{
-  font-size:.92rem;color:var(--accent);font-weight:600;
-  letter-spacing:.02em
-}
-.ch-status{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+.status{
+  display:inline-block;
+  margin-top:.5rem;
+  font-size:.68rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:700;
   color:var(--muted);
-  background:var(--tint-2);border:1px dashed var(--border);
-  padding:.45rem .75rem;border-radius:4px;width:fit-content
+  border:1px dashed var(--line);
+  border-radius:6px;
+  padding:.36rem .5rem;
 }
-.ch-status::before{
-  content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);
-  box-shadow:0 0 0 4px var(--accent-soft)
+.reel{
+  margin-top:.45rem;
+  border:1px solid var(--line);
+  border-radius:7px;
+  background:var(--card);
+  padding:.55rem .62rem;
+  display:flex;
+  justify-content:space-between;
+  text-decoration:none;
 }
-.ch-results{display:flex;flex-direction:column;gap:.6rem;margin-top:auto}
-.ch-reel{
-  display:flex;justify-content:space-between;align-items:center;
-  background:var(--tint);border:1px solid var(--border);
-  padding:.7rem .9rem;border-radius:6px;text-decoration:none;
-  transition:border-color .2s,background .2s
+.reel span:first-child{font-weight:700}
+.reel span:last-child{
+  color:var(--brand);
+  font-size:.66rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  font-weight:700;
 }
-.ch-reel:hover{border-color:var(--accent);background:var(--accent-soft)}
-.ch-reel-stat{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;
-  font-size:1rem;color:var(--text);letter-spacing:.02em
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.8rem;
+  margin:1.2rem 0;
 }
-.ch-reel-tag{
-  font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent);background:var(--accent-soft);
-  padding:.2rem .5rem;border-radius:2px
+.stat{
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:var(--surface);
+  padding:1rem;
+  text-align:center;
 }
-
-/* ─── CTA ─── */
-.cta-section{
-  background:
-    radial-gradient(ellipse 70% 70% at 50% 50%,var(--accent-soft) 0%,transparent 70%),
-    var(--surface);
-  position:relative;overflow:hidden
-}
-.cta-inner{max-width:900px;margin:0 auto;padding:7rem 3rem;text-align:center;position:relative}
-.cta-pre{color:var(--accent);font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.25rem;display:block}
-.cta-h{
+.stat .v{
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,8vw,7rem);line-height:.95;letter-spacing:.03em;
-  margin-bottom:.5em;color:var(--text)
+  font-size:2.4rem;
+  color:var(--brand);
+  line-height:1;
 }
-.cta-h .r{color:var(--accent)}
-.cta-sub{font-size:1.02rem;color:var(--muted);line-height:1.7;max-width:540px;margin:0 auto 2.5rem}
-.cta-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
-.cta-contacts{
-  display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;
-  padding-top:2rem;border-top:1px solid var(--border)
-}
-.cca{
-  display:flex;align-items:center;gap:.6rem;
-  font-size:.88rem;color:var(--muted);text-decoration:none;
-  transition:color .2s
-}
-.cca:hover{color:var(--text)}
-.cca .cca-icon{
-  width:34px;height:34px;border-radius:50%;
-  background:var(--accent-soft);border:1px solid var(--accent-strong);
-  color:var(--accent);
-  display:flex;align-items:center;justify-content:center;font-size:.9rem
-}
-
-/* ─── FOOTER (deck appendix, not a full site footer) ─── */
-footer{
-  background:var(--surface);border-top:1px solid var(--border);
-  padding:1.5rem 2rem 2.75rem;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;gap:.35rem;
-  font-size:.72rem;color:var(--muted)
-}
-.footer-logo{
-  background:var(--logo-bg);padding:var(--logo-pad);border-radius:var(--logo-radius);
-  line-height:0;display:inline-flex;align-items:center
-}
-.footer-logo img{height:26px;width:auto;display:block}
-
-/* ─── FORMAT SHOWCASE (PHONE FRAME) ─── */
-.format-section{position:relative;overflow:hidden}
-.format-section.tinted{
-  background:
-    radial-gradient(ellipse 60% 50% at 80% 30%, var(--accent-soft) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 20% 80%, var(--accent-soft) 0%, transparent 65%),
-    var(--bg)
-}
-.format-section.plain{background:var(--surface)}
-.format-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:5rem;align-items:center
-}
-.format-grid.reverse .format-phone{order:2}
-.format-grid.reverse .format-copy{order:1}
-@media(max-width:900px){
-  .format-grid{grid-template-columns:1fr;gap:2.5rem}
-  .format-grid.reverse .format-phone{order:1}
-  .format-grid.reverse .format-copy{order:2}
-}
-.format-tag{
-  display:inline-flex;align-items:center;gap:.5rem;
-  background:var(--accent-soft);border:1px solid var(--accent-strong);
-  color:var(--accent);font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  padding:.35rem .85rem;border-radius:2px;margin-bottom:1.25rem
-}
-.format-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
-.format-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2.4rem,4.5vw,3.8rem);
-  line-height:.95;letter-spacing:.02em;margin-bottom:1rem;color:var(--text)
-}
-.format-title .accent{color:var(--accent)}
-.format-lede{font-size:1rem;color:var(--muted);line-height:1.65;margin-bottom:1.5rem;max-width:480px}
-.format-bullets{list-style:none;display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.5rem}
-.format-bullets li{
-  display:flex;align-items:flex-start;gap:.85rem;
-  font-size:.92rem;color:var(--text);line-height:1.5
-}
-.format-bullets li::before{
-  content:'';flex-shrink:0;margin-top:.45rem;
-  width:8px;height:8px;border-radius:2px;
-  background:var(--accent);
-  box-shadow:0 0 0 4px var(--accent-soft)
-}
-.format-bullets li strong{color:var(--accent);font-weight:700;letter-spacing:.02em}
-.format-meta{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+.stat .k{
+  margin-top:.35rem;
   color:var(--muted);
-  background:var(--tint-2);border:1px solid var(--border);
-  padding:.4rem .75rem;border-radius:4px
+  font-size:.7rem;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  font-weight:700;
 }
-.format-meta strong{color:var(--accent)}
-
-/* Phone frame mockup (CSS-only) */
-.phone-frame{
-  width:280px;aspect-ratio:9/16;
-  border-radius:42px;padding:10px;
-  background:linear-gradient(160deg,#1c1c24,#000 60%);
-  box-shadow:
-    0 30px 60px rgba(0,0,0,.45),
-    0 0 0 1.5px rgba(255,255,255,.08) inset,
-    0 0 0 4px rgba(0,0,0,.6);
-  position:relative;margin:0 auto;isolation:isolate
+table{
+  width:100%;
+  border-collapse:collapse;
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
 }
-[data-theme="light"] .phone-frame{
-  box-shadow:
-    0 30px 60px rgba(30,91,255,.18),
-    0 0 0 1.5px rgba(255,255,255,.08) inset,
-    0 8px 30px rgba(10,15,44,.15)
+th,td{
+  padding:.75rem .8rem;
+  border-bottom:1px solid var(--line);
+  text-align:left;
 }
-.phone-frame::before{
-  content:'';position:absolute;top:18px;left:50%;transform:translateX(-50%);
-  width:96px;height:26px;background:#000;border-radius:14px;z-index:3;
-  box-shadow:0 0 0 1px rgba(255,255,255,.04)
+th{
+  background:var(--card);
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-size:.68rem;
+  color:var(--muted);
 }
-.phone-frame::after{
-  content:'';position:absolute;inset:10px;border-radius:32px;
-  pointer-events:none;z-index:2;
-  background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,transparent 18%,transparent 82%,rgba(0,0,0,.35) 100%)
+tbody tr:last-child td{border-bottom:none}
+tbody tr.highlight{background:color-mix(in srgb,var(--brand) 10%,var(--surface));font-weight:700}
+.steps{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:.8rem;
 }
-.phone-frame video,
-.phone-frame img{
-  width:100%;height:100%;border-radius:32px;object-fit:cover;display:block;
-  background:#000
+.step{
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--surface);
+  padding:1rem;
 }
-.phone-glow{
-  position:absolute;inset:-30px;border-radius:60px;z-index:-1;
-  background:radial-gradient(ellipse 60% 50% at 50% 50%, var(--accent-soft) 0%, transparent 70%);
-  filter:blur(20px);opacity:.9;pointer-events:none
+.num{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:1;color:var(--brand)}
+.step h3{
+  margin:.42rem 0;
+  font-family:'Barlow Condensed',sans-serif;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  font-size:1rem;
 }
-.phone-carousel{display:flex;flex-direction:column;align-items:center;width:100%}
-.phone-carousel-controls{
-  display:flex;align-items:center;justify-content:center;gap:.65rem;
-  margin-top:1.25rem;flex-wrap:wrap
+.step p{font-size:.88rem;color:var(--muted);line-height:1.5}
+.cta{
+  width:100%;
+  text-align:center;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--brand) 15%,var(--surface)),var(--surface));
+  padding:2rem 1.2rem;
 }
-.carousel-btn{
-  font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;
-  padding:.45rem 1rem;border-radius:4px;cursor:pointer;border:1px solid var(--accent-strong);
-  background:var(--accent-soft);color:var(--accent);transition:background .2s,border-color .2s,color .2s
+.cta-actions{margin-top:1rem;display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap}
+footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
+.animate{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .55s ease,transform .55s ease;
 }
-.carousel-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
-.carousel-caption{
-  font-size:.72rem;font-weight:600;color:var(--muted);letter-spacing:.04em;
-  min-width:9.5rem;text-align:center;line-height:1.35
+.animate.show{opacity:1;transform:translateY(0)}
+@media (max-width:1050px){
+  .hero-meta,.stats{grid-template-columns:repeat(2,1fr)}
+  .roi-grid,.cards-3,.steps{grid-template-columns:1fr}
+  .slide-head{grid-template-columns:1fr}
 }
-.carousel-dots{display:flex;gap:.45rem;justify-content:center;margin-top:.65rem}
-.carousel-dot{
-  width:8px;height:8px;border-radius:50%;border:none;padding:0;cursor:pointer;
-  background:var(--border);transition:background .2s,transform .2s
-}
-.carousel-dot.active{background:var(--accent);transform:scale(1.15)}
-.print-video-fallback{
-  display:none;font-size:.72rem;color:var(--muted);text-align:center;line-height:1.5;
-  padding:1.25rem .75rem;border:1px dashed var(--border);border-radius:28px;margin:0
-}
-
-/* Print → Save as PDF */
-@media print{
-  .no-print{display:none !important}
-  html.deck-headline-motion .deck-slide:not(.deck-headline-played) .deck-headline,
-  html.deck-headline-motion .deck-slide.deck-headline-played .deck-headline{
-    opacity:1!important;
-    transform:none!important;
-    animation:none!important
-  }
-  .hero-line,.hero-tag{opacity:1!important;animation:none!important;transform:none!important}
-  .hero-type:empty::after{
-    content:attr(data-full);
-    color:var(--text)
-  }
-  .hero-line--2 .hero-type:empty::after{
-    color:#1E5BFF!important
-  }
-  .hero-line--2.is-shining{
-    background:none!important;
-    -webkit-text-fill-color:#1E5BFF!important;
-    animation:none!important
-  }
-  .hero-caret{display:none!important}
-  .truth-wrong-text:empty::after{
-    content:attr(data-full);
-    color:#1E5BFF!important
-  }
-  html,body{background:#fff !important;color:#111 !important}
-  nav{background:#fff !important;border-bottom:1px solid #ddd !important}
-  .nav-logo{background:#fff !important;padding:0 !important}
-  .nav-logo img{filter:none !important;height:38px !important}
-  section,.section-inner{break-inside:avoid;page-break-inside:avoid}
-  .phone-frame{
-    box-shadow:none !important;border:1px solid #ccc !important;
-    min-height:220px;display:flex;align-items:center;justify-content:center
-  }
-  .phone-frame video,.phone-glow{display:none !important}
-  .phone-frame::before,.phone-frame::after{display:none !important}
-  .print-video-fallback{display:block !important;color:#333 !important;border-color:#ccc !important}
-  .format-section.tinted,.format-section.plain,.hero-bg,.cta-section{background:#fff !important}
-  .about-section .about-cards .acard,
-  .ugc-section .ugc-cards .ugc-card,
-  .process-section .process-steps .step,
-  .roi-section .roi-cards .roi-card{
-    opacity:1!important;
-    transform:none!important;
-    animation:none!important
-  }
-  a{color:#1E5BFF !important;text-decoration:underline}
-}
-
-/* ─── MOBILE NAV ─── */
-@media(max-width:820px){
-  nav{padding:.7rem 1.25rem}
+@media (max-width:820px){
   .nav-links{display:none}
-  .nav-right{gap:.5rem;flex-wrap:wrap;justify-content:flex-end}
-  .nav-dl-btn{padding:.32rem .45rem;font-size:.58rem}
-  .nav-cta{padding:.45rem .9rem;font-size:.7rem}
-  .hero{padding:7rem 1.5rem 4rem}
-  .hero-scroll{display:none}
-  .section-inner{padding:4.5rem 1.5rem}
-  footer{padding:1.5rem;font-size:.72rem;text-align:center;justify-content:center}
-  .phone-frame{width:240px}
-  .format-grid{gap:2rem}
-}
-@media(max-height:780px){
-  .hero-scroll{display:none}
 }
 </style>
 </head>
 <body>
-
-<!-- NAV (deck chrome) -->
-<nav class="deck-nav">
-  <a href="#deck-cover" class="nav-logo" aria-label="Hivesurf — slide 1">
-    <img src="assets/hivesurf-logo.png" alt="Hivesurf">
-  </a>
-  <div class="deck-nav-center">
-    <span class="deck-kicker" id="deckKicker">Cover</span>
-    <span class="deck-progress" aria-live="polite"><span id="deckCurr">01</span><span class="deck-sep">/</span><span id="deckTotal">12</span></span>
-  </div>
-  <details class="deck-outline no-print">
-    <summary class="deck-outline-summary">Slides</summary>
-    <div class="deck-outline-panel">
-      <a href="#deck-cover">01 — Cover</a>
-      <a href="#about">02 — Who we are</a>
-      <a href="#truth">03 — 2026 truth</a>
-      <a href="#ugc">04 — UGC &amp; brand face</a>
-      <a href="#packages">05 — Packages</a>
-      <a href="#roi">06 — ROI</a>
-      <a href="#process">07 — Process</a>
-      <a href="#compare">08 — Compare</a>
-      <a href="#format-influencer">09 — Influencer format</a>
-      <a href="#format-ugc">10 — UGC format</a>
-      <a href="#clients">11 — Live work</a>
-      <a href="#cta">12 — Contact</a>
+<nav>
+  <div class="container nav-wrap">
+    <a href="#top" class="logo"><img src="assets/hivesurf-logo.png" alt="Hivesurf"></a>
+    <div class="nav-links">
+      <a href="#roi">ROI</a>
+      <a href="#clients">Clients</a>
+      <a href="#compare">Compare</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
     </div>
-  </details>
-  <div class="nav-right">
-    <div class="nav-downloads no-print">
-      <button type="button" class="nav-dl-btn" id="btnSavePdf" title="Opens print — choose Save as PDF">PDF</button>
-      <button type="button" class="nav-dl-btn" id="btnSavePpt" title="Download PowerPoint summary">PPT</button>
+    <div class="nav-actions">
+      <button id="themeToggle" class="btn" type="button">Light/Dark</button>
+      <a class="btn btn-primary" href="#contact">Start</a>
     </div>
-    <button class="theme-toggle no-print" type="button" aria-label="Toggle theme" id="themeToggle">
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-    </button>
-    <a href="#cta" class="nav-cta no-print">Contact</a>
   </div>
 </nav>
 
-<aside class="deck-rail no-print" aria-label="Jump to slide">
-  <a href="#deck-cover" title="Cover">1</a>
-  <a href="#about" title="Who we are">2</a>
-  <a href="#truth" title="2026 truth">3</a>
-  <a href="#ugc" title="UGC">4</a>
-  <a href="#packages" title="Packages">5</a>
-  <a href="#roi" title="ROI">6</a>
-  <a href="#process" title="Process">7</a>
-  <a href="#compare" title="Compare">8</a>
-  <a href="#format-influencer" title="Influencer format">9</a>
-  <a href="#format-ugc" title="UGC format">10</a>
-  <a href="#clients" title="Live work">11</a>
-  <a href="#cta" title="Contact">12</a>
-</aside>
-
-<!-- HERO -->
-<section class="hero deck-slide" id="deck-cover">
-  <div class="hero-bg"></div>
-  <div style="position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%">
-    <div class="hero-tag">Hivesurf Proposal · 2026</div>
-    <h1 class="hero-title" id="heroHeadline" aria-label="Your brand needs us">
-      <span class="hero-line hero-line--1">
-        <span class="hero-type" data-full="YOUR BRAND"></span><span class="hero-caret" aria-hidden="true"></span>
-      </span>
-      <span class="hero-line hero-line--2 line2">
-        <span class="hero-type" data-full="NEEDS US."></span><span class="hero-caret hero-caret-off" aria-hidden="true"></span>
-      </span>
-    </h1>
-    <p class="hero-sub">Real audiences. Real engagement. Trust engineered at scale — no vanity metrics, no ghost followers.</p>
-    <div class="hero-stats">
-      <div class="hstat">
-        <div class="hval">18<span>L+</span></div>
-        <div class="hlbl">Reach on top-tier package</div>
-      </div>
-      <div class="hstat">
-        <div class="hval">2.6<span>L+</span></div>
-        <div class="hlbl">Across 3 curated creators</div>
-      </div>
-      <div class="hstat">
-        <div class="hval">100<span>%</span></div>
-        <div class="hlbl">Managed end-to-end</div>
-      </div>
-      <div class="hstat">
-        <div class="hval">4<span>x–10x</span></div>
-        <div class="hlbl">Industry avg ROI</div>
-      </div>
+<section class="deck-slide" id="top">
+  <div class="container hero-wrap animate">
+    <div class="tag">Hivesurf Proposal Deck 2026</div>
+    <h1 class="title">YOUR BRAND NEEDS<br><span class="accent">MEASURABLE ROI</span></h1>
+    <p class="muted" style="max-width:700px">A slide-style proposal for client meetings focused on performance, pricing, influencer quality, and real campaign proof.</p>
+    <div class="hero-meta">
+      <div class="metric"><div class="v">2x-5x</div><div class="k">Conservative ROI band</div></div>
+      <div class="metric"><div class="v">3</div><div class="k">Creators per package</div></div>
+      <div class="metric"><div class="v">5-7</div><div class="k">Days brief to live</div></div>
+      <div class="metric"><div class="v">100%</div><div class="k">Campaign managed</div></div>
     </div>
-    <div class="hero-ctas no-print">
-      <a href="#packages" class="btn-primary">See Packages</a>
-      <a href="#roi" class="btn-outline">Calculate ROI</a>
-    </div>
-    <div class="hero-scroll no-print"><div class="scroll-line"></div>Scroll or ↓ for next slide</div>
   </div>
 </section>
 
-<hr class="sdiv">
-
-<!-- WHO WE ARE -->
-<section class="about-section deck-slide" id="about">
-  <div class="section-inner">
-    <div class="about-grid">
+<section class="deck-slide" id="roi">
+  <div class="container animate">
+    <div class="slide-head">
       <div>
-        <span class="s-label">Who We Are</span>
-        <div class="s-title deck-headline">We Build<br><span class="accent">Brand</span><br>Reputations.</div>
-        <p class="s-body">A performance-led influencer marketing agency. Every creator is vetted. Every campaign is tracked. Every rupee has a number attached.</p>
-        <div class="about-tagline">"One influencer is a post.<br>Three aligned voices is a movement."</div>
+        <div class="tag">ROI Breakdown</div>
+        <h2 class="title">WHAT DOES YOUR<br>MONEY <span class="accent">RETURN?</span></h2>
       </div>
-      <div>
-        <div class="about-cards">
-          <div class="acard">
-            <div class="acard-icon">01</div>
-            <h3>Right Creator Fit</h3>
-            <p>Matched to your customer profile — age, city, niche, intent.</p>
-          </div>
-          <div class="acard">
-            <div class="acard-icon">02</div>
-            <h3>Real Measurement</h3>
-            <p>Reach, views, saves, story taps — tracked, reported, board-ready.</p>
-          </div>
-          <div class="acard">
-            <div class="acard-icon">03</div>
-            <h3>Aligned Voices</h3>
-            <p>3-creator trust cascade. Coordinated timing. Consistent message.</p>
-          </div>
-          <div class="acard">
-            <div class="acard-icon">04</div>
-            <h3>Fast Execution</h3>
-            <p>Brief to live in 5–7 days. Trends don't wait. We don't either.</p>
-          </div>
+      <p class="muted">Every rupee has a return attached. Conservative benchmarks based on India 2026 industry averages.</p>
+    </div>
+    <div class="roi-grid">
+      <article class="roi-card">
+        <div class="roi-top"><div class="pkg">Entry - Spark</div><div class="cost">Rs25,000</div><div class="sub">investment</div></div>
+        <div class="roi-mid">
+          <div class="row"><span class="left">Combined Followers</span><span class="right">~50,000</span></div>
+          <div class="row"><span class="left">Video Views</span><span class="right">15K - 25K</span></div>
+          <div class="row"><span class="left">Total Impressions</span><span class="right">22K - 37K</span></div>
+          <div class="row"><span class="left">Cost / Impression</span><span class="right">Rs0.67 - Rs1.14</span></div>
         </div>
-      </div>
+        <div class="roi-foot"><div class="lbl">Conservative ROI</div><div class="val">2x - 3x</div><p>Rs500 AOV funnel can return Rs60K+ on Rs25K spend.</p></div>
+      </article>
+      <article class="roi-card featured">
+        <div class="roi-top"><div class="pkg">Growth - Grow</div><div class="cost">Rs40,000</div><div class="sub">investment</div></div>
+        <div class="roi-mid">
+          <div class="row"><span class="left">Combined Followers</span><span class="right">~1.2 Lakh</span></div>
+          <div class="row"><span class="left">Video Views</span><span class="right">48K - 90K</span></div>
+          <div class="row"><span class="left">Total Impressions</span><span class="right">66K - 1.2L</span></div>
+          <div class="row"><span class="left">Effective CPM</span><span class="right">Rs333 - Rs606</span></div>
+        </div>
+        <div class="roi-foot"><div class="lbl">Conservative ROI</div><div class="val">3x - 4x</div><p>Steady conversion can return Rs1.5L+ on Rs40K spend.</p></div>
+      </article>
+      <article class="roi-card">
+        <div class="roi-top"><div class="pkg">Premium - Dominate</div><div class="cost">Rs70,000</div><div class="sub">investment</div></div>
+        <div class="roi-mid">
+          <div class="row"><span class="left">Combined Followers</span><span class="right">~2.1 Lakh</span></div>
+          <div class="row"><span class="left">Video Views</span><span class="right">84K - 1.8L</span></div>
+          <div class="row"><span class="left">Total Impressions</span><span class="right">1.2L - 2.3L</span></div>
+          <div class="row"><span class="left">Effective CPM</span><span class="right">Rs304 - Rs583</span></div>
+        </div>
+        <div class="roi-foot"><div class="lbl">Conservative ROI</div><div class="val">3x - 5x</div><p>Scaled reach and strong offer can return Rs2L+ depending on category.</p></div>
+      </article>
     </div>
   </div>
 </section>
 
-<hr class="sdiv">
-
-<!-- TRUTH -->
-<section class="truth-section deck-slide" id="truth">
-  <div class="section-inner">
-    <span class="s-label">The 2026 Truth</span>
-    <div class="truth-hero-text truth-headline" aria-label="Influencer marketing is dead. Wrong.">
-      <span class="truth-block truth-block--top">INFLUENCER MARKETING</span><br>
-      <span class="truth-block truth-block--dead">
-        <span class="truth-dead-text">IS DEAD.</span>
-        <span class="truth-dead-stroke" aria-hidden="true"></span>
-      </span><br>
-      <span class="truth-block truth-block--wrong">
-        <span class="truth-wrong-text" data-full="WRONG."></span><span class="truth-wrong-caret" aria-hidden="true"></span>
-      </span>
-    </div>
-    <div class="truth-verdict">
-      <strong>74% of brands are increasing creator budgets in 2026.</strong> India's influencer market crossed ₹3,600 crore — heading to ₹5,500 crore. Old-school spray-and-pray is dead. Performance-led creator marketing is the new playbook.
-    </div>
-  </div>
-</section>
-
-<hr class="sdiv">
-
-<!-- UGC + BRAND FACE -->
-<section class="ugc-section deck-slide" id="ugc">
-  <div class="section-inner">
-    <span class="s-label">What's Working in 2026</span>
-    <div class="ugc-top">
-      <div>
-        <div class="s-title deck-headline">UGC &<br><span class="accent">Brand Face.</span></div>
-        <p class="s-body">Raw creator content that feels like a friend's recommendation — paired with one creator who becomes the face of your brand. Hivesurf builds both.</p>
-        <div class="ugc-stat-row">
-          <div class="ustat"><div class="uv">79%</div><div class="ul">UGC drives buying decisions</div></div>
-          <div class="ustat"><div class="uv">92%</div><div class="ul">Trust peers over brand ads</div></div>
-          <div class="ustat"><div class="uv">51%</div><div class="ul">Jump in creator-driven orders</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="ugc-cards">
-          <div class="ugc-card">
-            <div class="uc-num">01</div>
-            <h3>UGC-Style Content</h3>
-            <p>No studio. No script. Real environments, real voice — the format outperforming polished ads on Reels.</p>
-          </div>
-          <div class="ugc-card">
-            <div class="uc-num">02</div>
-            <h3>Brand Face Model</h3>
-            <p>1–2 creators over 3–6 months. Consistent face. Audience associates their trust with your brand.</p>
-          </div>
-          <div class="ugc-card">
-            <div class="uc-num">03</div>
-            <h3>Trackable ROI</h3>
-            <p>Promo codes, affiliate tags, UTM links. Creator spend becomes a performance channel — not a black box.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="approach-callout">
-      <span class="ac-label">How Hivesurf Does This</span>
-      <div class="ac-h">We Build The Strategy. Creators Execute It.</div>
-      <p>Brief — not script. Authentic content that still tells your brand story exactly the way you need it to.</p>
-    </div>
-  </div>
-</section>
-
-<hr class="sdiv">
-
-<!-- PACKAGES -->
-<section class="pkg-section deck-slide" id="packages">
-  <div class="section-inner">
-    <div class="pkg-intro">
-      <div>
-        <span class="s-label">Our Packages</span>
-        <div class="s-title deck-headline">Pick Your<br>Scale.<br><span class="accent">We Handle</span><br>The Rest.</div>
-      </div>
-      <div>
-        <p class="s-body">All packages include sourcing, audience verification, content brief, approvals, campaign management, and a performance report. You don't touch a single DM.</p>
-        <div class="pricing-callout">
-          <strong>Why these prices?</strong> Influencers with 60K–100K followers charge ₹20K–₹50K per Reel at 2026 market rates. Anyone promising 1L+ followers at ₹15K is cutting corners on your brand.
-        </div>
-      </div>
-    </div>
-
-    <div class="pkg-grid">
-      <div class="pkg-card">
-        <div class="pkg-head">
-          <div class="pkg-tier">Entry Package</div>
-          <div class="pkg-name">SPARK</div>
-          <div class="pkg-price">₹25,000 <span>/ campaign</span></div>
-          <p class="pkg-ideal">New brands & product launches.</p>
-        </div>
-        <div class="pkg-body">
-          <div class="pkg-row"><span class="pr-label">Influencers</span><span class="pr-val">3 Nano-Micro</span></div>
-          <div class="pkg-row"><span class="pr-label">Followers Each</span><span class="pr-val">10K – 30K</span></div>
-          <div class="pkg-row"><span class="pr-label">Combined Reach</span><span class="pr-val">35K – 65K</span></div>
-          <div class="pkg-row"><span class="pr-label">Reel Views (est.)</span><span class="pr-val">1L – 2.5L</span></div>
-          <div class="pkg-row"><span class="pr-label">Deliverable</span><span class="pr-val">3 Reels + Stories</span></div>
-          <div class="pkg-row"><span class="pr-label">Duration</span><span class="pr-val">2 Weeks</span></div>
-        </div>
-        <div class="pkg-foot">
-          <a href="#cta" class="btn-outline" style="width:100%;text-align:center;display:block;padding:.7rem">Get Started</a>
-        </div>
-      </div>
-
-      <div class="pkg-card featured">
-        <div class="pkg-head">
-          <div class="pkg-tier">Growth Package <span class="pkg-popular">Most Popular</span></div>
-          <div class="pkg-name">GROW</div>
-          <div class="pkg-price">₹40,000 <span>/ campaign</span></div>
-          <p class="pkg-ideal">Scaling D2C, restaurants, apps.</p>
-        </div>
-        <div class="pkg-body">
-          <div class="pkg-row"><span class="pr-label">Influencers</span><span class="pr-val">3 Micro-Mid</span></div>
-          <div class="pkg-row"><span class="pr-label">Followers Each</span><span class="pr-val">30K – 60K</span></div>
-          <div class="pkg-row"><span class="pr-label">Combined Reach</span><span class="pr-val">90K – 1.45L</span></div>
-          <div class="pkg-row"><span class="pr-label">Reel Views (est.)</span><span class="pr-val">3L – 6.5L</span></div>
-          <div class="pkg-row"><span class="pr-label">Deliverable</span><span class="pr-val">3 Reels + Stories</span></div>
-          <div class="pkg-row"><span class="pr-label">Duration</span><span class="pr-val">3 Weeks</span></div>
-        </div>
-        <div class="pkg-foot">
-          <a href="#cta" class="btn-primary" style="width:100%;text-align:center;display:block;padding:.7rem">Start Growing</a>
-        </div>
-      </div>
-
-      <div class="pkg-card">
-        <div class="pkg-head">
-          <div class="pkg-tier">Premium Package</div>
-          <div class="pkg-name">DOMINATE</div>
-          <div class="pkg-price">₹70,000 <span>/ campaign</span></div>
-          <p class="pkg-ideal">Market leaders ready to own the feed.</p>
-        </div>
-        <div class="pkg-body">
-          <div class="pkg-row"><span class="pr-label">Influencers</span><span class="pr-val">3 Mid-Large</span></div>
-          <div class="pkg-row"><span class="pr-label">Followers Each</span><span class="pr-val">60K – 100K</span></div>
-          <div class="pkg-row"><span class="pr-label">Combined Reach</span><span class="pr-val">1.6L – 2.6L</span></div>
-          <div class="pkg-row"><span class="pr-label">Reel Views (est.)</span><span class="pr-val">7L – 18L</span></div>
-          <div class="pkg-row"><span class="pr-label">Deliverable</span><span class="pr-val">3 Reels + Stories</span></div>
-          <div class="pkg-row"><span class="pr-label">Duration</span><span class="pr-val">4 Weeks</span></div>
-        </div>
-        <div class="pkg-foot">
-          <a href="#cta" class="btn-outline" style="width:100%;text-align:center;display:block;padding:.7rem">Dominate Now</a>
-        </div>
-      </div>
-    </div>
-    <p class="pkg-note">All packages include sourcing, coordination, brief, and management. Customisable for regional creators or brand face retainers. <a href="#cta">Talk to us →</a></p>
-  </div>
-</section>
-
-<hr class="sdiv">
-
-<!-- ROI -->
-<section class="roi-section deck-slide" id="roi">
-  <div class="section-inner">
-    <div class="roi-title-row">
-      <div>
-        <span class="s-label">ROI Breakdown</span>
-        <div class="s-title deck-headline">What Does Your<br>Money <span class="accent">Return?</span></div>
-      </div>
-      <div>
-        <p class="s-body">Every rupee has a return attached. Conservative benchmarks based on India's 2026 industry averages.</p>
-      </div>
-    </div>
-
-    <div class="roi-cards">
-      <div class="roi-card">
-        <div class="roi-card-head">
-          <div class="roi-pkg-tag">Entry · SPARK</div>
-          <div class="roi-pkg-name">₹25,000</div>
-          <div class="roi-pkg-price">investment</div>
-        </div>
-        <div class="roi-body">
-          <div class="roi-row"><span class="rrl">Combined Followers</span><span class="rrv">~50,000</span></div>
-          <div class="roi-row"><span class="rrl">Video Views</span><span class="rrv">15K – 25K</span></div>
-          <div class="roi-row"><span class="rrl">Total Impressions</span><span class="rrv">22K – 37K</span></div>
-          <div class="roi-row"><span class="rrl">Cost / Impression</span><span class="rrv">₹0.67 – ₹1.14</span></div>
-        </div>
-        <div class="roi-bottom">
-          <div class="rb-label">Conservative ROI</div>
-          <div class="rb-val">2x – 3x</div>
-          <div class="rb-note">₹500 AOV · realistic funnel = ₹60K+ revenue from ₹25K spend.</div>
-        </div>
-      </div>
-
-      <div class="roi-card featured">
-        <div class="roi-card-head">
-          <div class="roi-pkg-tag">Growth · GROW</div>
-          <div class="roi-pkg-name">₹40,000</div>
-          <div class="roi-pkg-price">investment</div>
-        </div>
-        <div class="roi-body">
-          <div class="roi-row"><span class="rrl">Combined Followers</span><span class="rrv">~1.2 Lakh</span></div>
-          <div class="roi-row"><span class="rrl">Video Views</span><span class="rrv">48K – 90K</span></div>
-          <div class="roi-row"><span class="rrl">Total Impressions</span><span class="rrv">66K – 1.2L</span></div>
-          <div class="roi-row"><span class="rrl">Effective CPM</span><span class="rrv">₹333 – ₹606</span></div>
-        </div>
-        <div class="roi-bottom">
-          <div class="rb-label">Conservative ROI</div>
-          <div class="rb-val">3x – 4x</div>
-          <div class="rb-note">₹800 AOV · steady conversion = ₹1.5L+ revenue from ₹40K spend.</div>
-        </div>
-      </div>
-
-      <div class="roi-card">
-        <div class="roi-card-head">
-          <div class="roi-pkg-tag">Premium · DOMINATE</div>
-          <div class="roi-pkg-name">₹70,000</div>
-          <div class="roi-pkg-price">investment</div>
-        </div>
-        <div class="roi-body">
-          <div class="roi-row"><span class="rrl">Combined Followers</span><span class="rrv">~2.1 Lakh</span></div>
-          <div class="roi-row"><span class="rrl">Video Views</span><span class="rrv">84K – 1.8L</span></div>
-          <div class="roi-row"><span class="rrl">Total Impressions</span><span class="rrv">1.2L – 2.3L</span></div>
-          <div class="roi-row"><span class="rrl">Effective CPM</span><span class="rrv">₹304 – ₹583</span></div>
-        </div>
-        <div class="roi-bottom">
-          <div class="rb-label">Conservative ROI</div>
-          <div class="rb-val">3x – 5x</div>
-          <div class="rb-note">Scaled reach + strong offer = ₹2L+ revenue from ₹70K spend (category-dependent).</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="sdiv">
-
-<!-- PROCESS -->
-<section class="process-section deck-slide" id="process">
-  <div class="section-inner">
-    <span class="s-label">The Process</span>
-    <div class="s-title deck-headline">Simple For You.<br><span class="accent">Powerful</span> For Your Brand.</div>
-    <p class="s-body">Give us 15 minutes and a brief. We handle sourcing, scripting, vetting, briefing, approvals, posting, and reporting.</p>
-
-    <div class="process-steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Brand Brief</h3>
-        <p>15-minute call. Product, audience, goals.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>Script & Strategy</h3>
-        <p>We write the content script tailored to your brand voice — so creators say exactly what your brand needs.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>Creator Match</h3>
-        <p>3 vetted creators. You approve before we contact anyone.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <h3>Content & Live</h3>
-        <p>Creators shoot. We review. You approve. Reels go live.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">05</div>
-        <h3>Results Report</h3>
-        <p>Reach, views, engagement, CPM. Proof it worked.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="sdiv">
-
-<!-- TRUST -->
-<section class="trust-section deck-slide" id="compare">
-  <div class="section-inner">
-    <span class="s-label">Why Hivesurf</span>
-    <div class="s-title deck-headline">How We Stack Up<br>Against The <span class="accent">Rest.</span></div>
-
-    <div class="trust-row" style="margin-top:2rem">
-      <div class="tstat"><div class="tv">4x–10x</div><div class="tl">Industry ROI Average</div></div>
-      <div class="tstat"><div class="tv">₹120</div><div class="tl">Lowest CPM (Dominate)</div></div>
-      <div class="tstat"><div class="tv">5–7</div><div class="tl">Days brief to live</div></div>
-      <div class="tstat"><div class="tv">0%</div><div class="tl">Fake followers</div></div>
-    </div>
-
-    <div class="compare-wrap">
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th>Agency Type</th>
-            <th>Price</th>
-            <th>Vetting</th>
-            <th>Reporting</th>
-            <th>Speed</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Freelance Outreach</td>
-            <td>₹5K–₹15K</td>
-            <td><span class="cross">✗ None</span></td>
-            <td><span class="cross">✗ None</span></td>
-            <td>Weeks</td>
-          </tr>
-          <tr>
-            <td>Large Agency</td>
-            <td>₹1L–₹5L</td>
-            <td><span class="check">✓ Full</span></td>
-            <td><span class="check">✓ Full</span></td>
-            <td>3–6 Weeks</td>
-          </tr>
-          <tr class="hs-row">
-            <td><strong class="hs">Hivesurf ★</strong></td>
-            <td class="hs">₹25K – ₹70K</td>
-            <td class="hs">✓ Full Audit</td>
-            <td class="hs">✓ Full Dashboard</td>
-            <td class="hs">5–7 Days</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<hr class="sdiv">
-
-<!-- FORMAT · INFLUENCER MARKETING -->
-<section class="format-section tinted deck-slide" id="format-influencer">
-  <div class="section-inner">
-    <div class="format-grid">
-      <div class="format-phone">
-        <div class="phone-carousel">
-          <div class="phone-frame">
-            <span class="phone-glow" aria-hidden="true"></span>
-            <video id="influCarouselVideo" class="reel" autoplay muted loop playsinline preload="metadata"
-                   poster="assets/vid/influ/influ-poster.webp"
-                   src="assets/vid/influ/influ-reel.mp4"
-                   aria-label="Sample influencer marketing reel"></video>
-            <p class="print-video-fallback">Reels are video-only in the live deck. Open this page in a browser to watch samples, or use the PPT export for an offline summary.</p>
-          </div>
-          <div class="phone-carousel-controls no-print">
-            <button type="button" class="carousel-btn" id="influPrev" aria-label="Previous sample reel">Prev</button>
-            <span class="carousel-caption" id="influCarouselCaption" aria-live="polite">1 / 3 · Arcade / viral</span>
-            <button type="button" class="carousel-btn" id="influNext" aria-label="Next sample reel">Next</button>
-          </div>
-          <div class="carousel-dots no-print" role="tablist" aria-label="Choose sample reel">
-            <button type="button" class="carousel-dot active" data-influ-dot="0" aria-label="Reel 1" aria-current="true"></button>
-            <button type="button" class="carousel-dot" data-influ-dot="1" aria-label="Reel 2: Gaming zone"></button>
-            <button type="button" class="carousel-dot" data-influ-dot="2" aria-label="Reel 3: Delhi food"></button>
-          </div>
-        </div>
-      </div>
-      <div class="format-copy">
-        <span class="format-tag">Format · Influencer Marketing</span>
-        <div class="format-title deck-headline">Polished. Aligned.<br><span class="accent">On-Brand.</span></div>
-        <p class="format-lede">Curated creators speaking your message in their voice. Built for trust, designed for reach.</p>
-        <ul class="format-bullets">
-          <li><span><strong>Curated voice</strong> — handpicked creators matched to your category and audience.</span></li>
-          <li><span><strong>Brief, not script</strong> — content feels native, never like an ad read.</span></li>
-          <li><span><strong>Trust cascade</strong> — 3 aligned voices stick in the algorithm and in memory.</span></li>
-        </ul>
-        <span class="format-meta">Sample reel · <strong>real client work</strong></span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="sdiv">
-
-<!-- FORMAT · UGC-STYLE -->
-<section class="format-section plain deck-slide" id="format-ugc">
-  <div class="section-inner">
-    <div class="format-grid reverse">
-      <div class="format-copy">
-        <span class="format-tag">Format · UGC-Style</span>
-        <div class="format-title deck-headline">Raw. Real.<br><span class="accent">Recommendation.</span></div>
-        <p class="format-lede">No studio. No script. Real environments and real voices — the format outperforming polished ads on Reels.</p>
-        <ul class="format-bullets">
-          <li><span><strong>No studio</strong> — shot at home, in the kitchen, on the way out. Authentic by default.</span></li>
-          <li><span><strong>Native voice</strong> — creators speak about your product like they discovered it themselves.</span></li>
-          <li><span><strong>Outperforms ads</strong> — feels like a friend's recommendation, converts like one too.</span></li>
-        </ul>
-        <span class="format-meta">Sample reel · <strong>UGC creator</strong></span>
-      </div>
-      <div class="format-phone">
-        <div class="phone-frame">
-          <span class="phone-glow" aria-hidden="true"></span>
-          <video class="reel" autoplay muted loop playsinline preload="metadata"
-                 poster="assets/vid/UGC/ugc-poster.jpg"
-                 aria-label="Sample UGC-style reel">
-            <source src="assets/vid/UGC/ugc-reel.mp4" type="video/mp4">
-          </video>
-          <p class="print-video-fallback">UGC sample is video-only in the live deck. Open in a browser to watch, or use the PPT export for offline slides.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="sdiv">
-
-<!-- BRANDS WE MANAGE -->
-<section class="clients-section deck-slide" id="clients">
-  <div class="section-inner">
-    <span class="s-label">Live Work</span>
-    <div class="s-title deck-headline">Brands We<br><span class="accent">Manage.</span></div>
-    <p class="s-body">Active campaigns running right now — real handles, real numbers.</p>
-
-    <div class="clients-grid">
+<section class="deck-slide" id="clients">
+  <div class="container animate">
+    <div class="tag">Live Work</div>
+    <h2 class="title">BRANDS WE<br><span class="accent">MANAGE.</span></h2>
+    <p class="muted" style="margin:.4rem 0 1.1rem">Active campaigns running now with real handles and performance proof.</p>
+    <div class="cards-3">
       <article class="client-card featured">
-        <a class="ch-handle" href="https://www.instagram.com/funkylilmunchkinspro/" target="_blank" rel="noopener">@funkylilmunchkinspro</a>
-        <div class="ch-summary">2+ influencers delivered</div>
-        <div class="ch-results">
-          <a href="https://www.instagram.com/p/DU5ig02ksts/" target="_blank" rel="noopener" class="ch-reel">
-            <div class="ch-reel-stat">11K plays · 240+ likes</div>
-            <div class="ch-reel-tag">Reel 1</div>
-          </a>
-          <a href="https://www.instagram.com/p/DWrWBORk4mG/" target="_blank" rel="noopener" class="ch-reel">
-            <div class="ch-reel-stat">35K plays · 800+ likes</div>
-            <div class="ch-reel-tag">Reel 2</div>
-          </a>
-        </div>
+        <div class="handle">@funkylilmunchkinspro</div>
+        <p style="color:var(--brand);font-weight:700">2+ influencers delivered</p>
+        <a class="reel" href="https://www.instagram.com/p/DU5ig02ksts/" target="_blank" rel="noopener"><span>11K plays - 240+ likes</span><span>Reel 1</span></a>
+        <a class="reel" href="https://www.instagram.com/reels/DWrWBORk4mG/" target="_blank" rel="noopener"><span>35K plays - 800+ likes</span><span>Reel 2</span></a>
       </article>
-
       <article class="client-card">
-        <a class="ch-handle" href="https://www.instagram.com/vm.metals_/" target="_blank" rel="noopener">@vm.metals_</a>
-        <div class="ch-summary">Active campaign</div>
-        <div class="ch-status">Campaign in progress</div>
+        <div class="handle">@vm.metals_</div>
+        <p style="color:var(--brand);font-weight:700">Active campaign</p>
+        <span class="status">Campaign in progress</span>
       </article>
-
       <article class="client-card">
-        <a class="ch-handle" href="https://www.instagram.com/carnalysys.pdi/" target="_blank" rel="noopener">@carnalysys.pdi</a>
-        <div class="ch-summary">Active campaign</div>
-        <div class="ch-status">Campaign in progress</div>
+        <div class="handle">@carnalysys.pdi</div>
+        <p style="color:var(--brand);font-weight:700">Active campaign</p>
+        <span class="status">Campaign in progress</span>
       </article>
     </div>
   </div>
 </section>
 
-<hr class="sdiv">
-
-<!-- CTA -->
-<section class="cta-section deck-slide" id="cta">
-  <div class="cta-inner">
-    <span class="cta-pre">Ready to grow?</span>
-    <div class="cta-h deck-headline">YOUR COMPETITORS<br>ARE ALREADY<br><span class="r">IN THE FEED.</span></div>
-    <p class="cta-sub">Every day without a creator strategy is a day your competitor is building trust with your audience.</p>
-    <div class="cta-actions no-print">
-      <a href="https://wa.me/917008310868?text=Hi%20Hivesurf%2C%20I'd%20like%20to%20start%20an%20influencer%20campaign" class="btn-primary" target="_blank" rel="noopener">WhatsApp Us</a>
-      <a href="mailto:connect@hivesurf.com?subject=Campaign%20Enquiry%20-%20Hivesurf" class="btn-outline">Email Us</a>
+<section class="deck-slide" id="compare">
+  <div class="container animate">
+    <div class="tag">Why Hivesurf</div>
+    <h2 class="title">HOW WE STACK UP<br>AGAINST THE <span class="accent">REST.</span></h2>
+    <div class="stats">
+      <div class="stat"><div class="v">4x-10x</div><div class="k">Industry ROI average</div></div>
+      <div class="stat"><div class="v">Rs120</div><div class="k">Lowest CPM (Dominate)</div></div>
+      <div class="stat"><div class="v">5-7</div><div class="k">Days brief to live</div></div>
+      <div class="stat"><div class="v">0%</div><div class="k">Fake followers</div></div>
     </div>
-    <div class="cta-contacts">
-      <a href="mailto:connect@hivesurf.com" class="cca">
-        <div class="cca-icon">@</div>
-        connect@hivesurf.com
-      </a>
-      <a href="https://wa.me/917008310868" class="cca" target="_blank" rel="noopener">
-        <div class="cca-icon">+</div>
-        +91 70083 10868
-      </a>
+    <table>
+      <thead>
+        <tr><th>Agency Type</th><th>Price</th><th>Vetting</th><th>Reporting</th><th>Speed</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Freelance Outreach</td><td>Rs5K-Rs15K</td><td>None</td><td>None</td><td>Weeks</td></tr>
+        <tr><td>Large Agency</td><td>Rs1L-Rs5L</td><td>Full</td><td>Full</td><td>3-6 Weeks</td></tr>
+        <tr class="highlight"><td>Hivesurf</td><td>Rs25K-Rs70K</td><td>Full Audit</td><td>Full Dashboard</td><td>5-7 Days</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="deck-slide" id="process">
+  <div class="container animate">
+    <div class="tag">The Process</div>
+    <h2 class="title">SIMPLE FOR YOU.<br><span class="accent">POWERFUL</span> FOR YOUR BRAND.</h2>
+    <p class="muted" style="margin:.6rem 0 1.2rem;max-width:760px">Give us a short brief and we handle sourcing, scripting, vetting, briefing, approvals, posting, and reporting.</p>
+    <div class="steps">
+      <article class="step"><div class="num">01</div><h3>Brand Brief</h3><p>15-minute call. Product, audience, goals.</p></article>
+      <article class="step"><div class="num">02</div><h3>Script & Strategy</h3><p>We craft script direction aligned to your category and buying triggers.</p></article>
+      <article class="step"><div class="num">03</div><h3>Creator Match</h3><p>Three vetted creators. You approve before outreach starts.</p></article>
+      <article class="step"><div class="num">04</div><h3>Content & Live</h3><p>Creators shoot. We review and refine. Reels go live.</p></article>
+      <article class="step"><div class="num">05</div><h3>Results Report</h3><p>Reach, views, engagement, CPM, and ROI reporting.</p></article>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<section class="deck-slide" id="contact">
+  <div class="container">
+    <div class="cta animate">
+      <div class="tag">Ready to Start?</div>
+      <h2 class="title" style="font-size:clamp(2.4rem,6vw,4.8rem)">LOCK PLAN.<br><span class="accent">GO LIVE THIS WEEK.</span></h2>
+      <p class="muted" style="max-width:640px;margin:0 auto">Choose package, approve creators, and launch in under a week. We handle the full campaign end-to-end.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="https://wa.me/917008310868?text=Hi%20Hivesurf%2C%20I%20want%20to%20start%20an%20influencer%20campaign" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn" href="mailto:connect@hivesurf.com?subject=Campaign%20Enquiry%20-%20Hivesurf">Email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
-  <div class="footer-logo"><img src="assets/hivesurf-logo.png" alt="Hivesurf"></div>
-  <div>Performance-Led Influencer Marketing · India · 2026</div>
-  <div>connect@hivesurf.com · +91 70083 10868</div>
+  Hivesurf - Influencer Marketing Proposal Deck 2026 - connect@hivesurf.com - +91 70083 10868
 </footer>
 
 <script>
 (function(){
   var root = document.documentElement;
-  var stored = null;
-  try { stored = localStorage.getItem('hivesurf-theme'); } catch(e){}
-  if (stored === 'light' || stored === 'dark') {
-    root.setAttribute('data-theme', stored);
-  }
-  var btn = document.getElementById('themeToggle');
-  if (btn) {
-    btn.addEventListener('click', function(){
-      var current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-      var next = current === 'light' ? 'dark' : 'light';
+  var key = 'hivesurf-theme';
+  try{
+    var saved = localStorage.getItem(key);
+    if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  }catch(e){}
+  var toggle = document.getElementById('themeToggle');
+  if (toggle){
+    toggle.addEventListener('click', function(){
+      var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      var next = current === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
-      try { localStorage.setItem('hivesurf-theme', next); } catch(e){}
+      try{ localStorage.setItem(key, next); }catch(e){}
     });
   }
 })();
 
 (function(){
-  /* ── Take full control of scroll position on reload ── */
-  try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(e){}
-
-  var slides    = document.querySelectorAll('.deck-slide');
-  var n         = slides.length;
-  var currEl    = document.getElementById('deckCurr');
-  var totalEl   = document.getElementById('deckTotal');
-  var kickerEl  = document.getElementById('deckKicker');
-  var labels    = ['Cover','Who we are','2026 truth','UGC & brand face','Packages','ROI','Process','Compare','Influencer format','UGC format','Live work','Contact'];
-  var rail      = document.querySelectorAll('.deck-rail a');
-  var reduced   = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var SESS_KEY  = 'hivesurf-slide-id';  /* sessionStorage — survives reload, cleared on tab close */
-
-  if (!reduced) document.documentElement.classList.add('deck-headline-motion');
-  if (totalEl && n) totalEl.textContent = String(n).padStart(2,'0');
-  if (!slides.length) return;
-
-  /* ── Persist ── */
-  function saveSlide(id){
-    try { sessionStorage.setItem(SESS_KEY, id); } catch(e){}
-  }
-  function savedSlideId(){
-    try { return sessionStorage.getItem(SESS_KEY) || ''; } catch(e){ return ''; }
-  }
-  function idToIndex(id){
-    if (!id) return -1;
-    for (var i = 0; i < slides.length; i++) if (slides[i].id === id) return i;
-    return -1;
-  }
-
-  /* ── Nav bar + rail ── */
-  function setActive(i){
-    if (i < 0 || i >= n) return;
-    if (currEl)   currEl.textContent  = String(i + 1).padStart(2,'0');
-    if (kickerEl) kickerEl.textContent = labels[i] || 'Slide';
-    rail.forEach(function(a,j){ a.classList.toggle('is-active', j === i); });
-    if (slides[i] && slides[i].id) saveSlide(slides[i].id);
-  }
-
-  /* ── Mark headline played for slide + everything before it ── */
-  function markPlayed(idx){
-    if (reduced) return;
-    for (var k = 0; k <= idx; k++) slides[k].classList.add('deck-headline-played');
-  }
-
-  /* ── Scroll to a slide instantly (no animation — used on restore) ── */
-  function jumpTo(idx){
-    if (idx < 0 || idx >= n) return;
-    markPlayed(idx);
-    setActive(idx);
-    slides[idx].scrollIntoView({ behavior: 'instant', block: 'start' });
-  }
-
-  /* ── Find which slide is most visible right now ── */
-  function visibleIndex(){
-    var mid = (window.scrollY || window.pageYOffset) + window.innerHeight * 0.46;
-    var best = 0, bestD = 1e18;
-    for (var i = 0; i < n; i++){
-      var el = slides[i];
-      var top = el.offsetTop;
-      var bot = top + el.offsetHeight;
-      if (mid >= top && mid <= bot) return i;
-      var d = Math.min(Math.abs(mid - top), Math.abs(mid - bot));
-      if (d < bestD){ bestD = d; best = i; }
-    }
-    return best;
-  }
-
-  /* ── Determine restore target ── */
-  function restoreIndex(){
-    /* 1. Explicit URL hash */
-    var hash = (window.location.hash || '').replace(/^#/,'');
-    var hi = idToIndex(hash);
-    if (hi >= 0) return hi;
-    /* 2. sessionStorage (same tab, survives reload) */
-    var si = idToIndex(savedSlideId());
-    if (si >= 0) return si;
-    /* 3. Cover */
-    return 0;
-  }
-
-  /* ── Restore on load ── */
-  var target = restoreIndex();
-  /* Use rAF so layout is complete before we scroll */
-  requestAnimationFrame(function(){
-    requestAnimationFrame(function(){
-      jumpTo(target);
-    });
-  });
-
-  /* ── IntersectionObserver: update counter + save while user scrolls ── */
-  if ('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        var slide = entry.target;
-        if (entry.isIntersecting){
-          /* slide entered → play animations */
-          if (!reduced && !slide.classList.contains('deck-headline-played'))
-            slide.classList.add('deck-headline-played');
-          var idx = Array.prototype.indexOf.call(slides, slide);
-          if (idx >= 0) setActive(idx);
-        } else {
-          /* slide left → reset so animations replay next visit */
-          if (!reduced){
-            slide.classList.remove('deck-headline-played');
-            try { slide.dispatchEvent(new CustomEvent('deck:exit')); } catch(e){}
-          }
-        }
-      });
-    }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 });
-    slides.forEach(function(s){ io.observe(s); });
-  }
-
-  /* ── Save on pagehide (fires before tab/browser close and before reload) ── */
-  window.addEventListener('pagehide', function(){
-    var i = visibleIndex();
-    if (slides[i] && slides[i].id) saveSlide(slides[i].id);
-  }, { passive: true });
-
-  /* ── Outline panel: close on click ── */
-  document.querySelectorAll('.deck-outline-panel a').forEach(function(a){
-    a.addEventListener('click', function(){
-      var d = a.closest('details');
-      if (d) d.removeAttribute('open');
-    });
-  });
-
-  /* ── Hash links: save + refresh ── */
-  window.addEventListener('hashchange', function(){
-    var h = (window.location.hash || '').replace(/^#/,'');
-    var hi = idToIndex(h);
-    if (hi >= 0){ markPlayed(hi); setActive(hi); }
-  }, { passive: true });
-
-  /* ── Keyboard navigation ── */
-  document.addEventListener('keydown', function(e){
-    var tag = document.activeElement && document.activeElement.tagName;
-    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-    if (document.activeElement && document.activeElement.closest('details[open]')) return;
-    var smooth = !reduced;
-    var idx = visibleIndex();
-    if (e.key === 'ArrowDown' || e.key === 'PageDown'){
-      e.preventDefault();
-      if (idx < n - 1) slides[idx + 1].scrollIntoView({ behavior: smooth ? 'smooth' : 'instant', block: 'start' });
-    } else if (e.key === 'ArrowUp' || e.key === 'PageUp'){
-      e.preventDefault();
-      if (idx > 0) slides[idx - 1].scrollIntoView({ behavior: smooth ? 'smooth' : 'instant', block: 'start' });
-    }
-  });
-})();
-
-(function(){
-  var hero = document.getElementById('deck-cover');
-  if (!hero) return;
-  var line2 = hero.querySelector('.hero-line--2');
-  var t1 = hero.querySelector('.hero-line--1 .hero-type');
-  var t2 = hero.querySelector('.hero-line--2 .hero-type');
-  var c1 = hero.querySelector('.hero-line--1 .hero-caret');
-  var c2 = hero.querySelector('.hero-line--2 .hero-caret');
-  if (!t1 || !t2) return;
-  var full1 = (t1.getAttribute('data-full') || '').trim();
-  var full2 = (t2.getAttribute('data-full') || '').trim();
-  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var ran = false;
-  var typeTimer = null;
-  function fillStatic(){
-    t1.textContent = full1;
-    t2.textContent = full2;
-    if (c1) c1.classList.add('hero-caret-off');
-    if (c2) c2.classList.add('hero-caret-off');
-    if (line2) line2.classList.add('is-shining');
-  }
-  function resetHero(){
-    ran = false;
-    if (typeTimer){ clearTimeout(typeTimer); typeTimer = null; }
-    t1.textContent = '';
-    t2.textContent = '';
-    if (line2) line2.classList.remove('is-shining');
-    if (c1) c1.classList.add('hero-caret-off');
-    if (c2) c2.classList.add('hero-caret-off');
-  }
-  function typeLine(target, caret, full, charDelay, done){
-    target.textContent = '';
-    var i = 0;
-    function tick(){
-      if (!ran){ return; } /* aborted */
-      if (i < full.length) {
-        target.textContent += full.charAt(i);
-        i++;
-        typeTimer = window.setTimeout(tick, charDelay);
-      } else {
-        if (caret) caret.classList.add('hero-caret-off');
-        if (done) done();
-      }
-    }
-    tick();
-  }
-  function run(){
-    if (ran) return;
-    ran = true;
-    if (reduced) { fillStatic(); return; }
-    t1.textContent = '';
-    t2.textContent = '';
-    if (line2) line2.classList.remove('is-shining');
-    if (c1) c1.classList.remove('hero-caret-off');
-    if (c2) c2.classList.add('hero-caret-off');
-    typeLine(t1, c1, full1, 72, function(){
-      if (!ran) return;
-      if (c2) c2.classList.remove('hero-caret-off');
-      typeLine(t2, c2, full2, 78, function(){
-        if (!ran) return;
-        if (line2) line2.classList.add('is-shining');
-      });
-    });
-  }
-  if (reduced) { fillStatic(); return; }
-  /* Listen for slide-exit to reset so animation replays next visit */
-  hero.addEventListener('deck:exit', function(){
-    resetHero();
-  });
-  var mo = new MutationObserver(function(){
-    if (!hero.classList.contains('deck-headline-played')) return;
-    requestAnimationFrame(function(){ requestAnimationFrame(run); });
-  });
-  mo.observe(hero, { attributes: true, attributeFilter: ['class'] });
-  if (hero.classList.contains('deck-headline-played')){
-    requestAnimationFrame(function(){ requestAnimationFrame(run); });
-  }
-})();
-
-(function(){
-  var section = document.getElementById('truth');
-  if (!section) return;
-  var wrongEl = section.querySelector('.truth-wrong-text');
-  var caret = section.querySelector('.truth-wrong-caret');
-  if (!wrongEl) return;
-  var full = (wrongEl.getAttribute('data-full') || 'WRONG.').trim();
-  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) {
-    wrongEl.textContent = full;
-    if (caret) caret.classList.add('is-done');
+  var items = document.querySelectorAll('.animate');
+  if (!('IntersectionObserver' in window)){
+    items.forEach(function(el){ el.classList.add('show'); });
     return;
   }
-  var started = false;
-  var truthTimer = null;
-  var topBlock  = section.querySelector('.truth-block--top');
-  var deadText  = section.querySelector('.truth-dead-text');
-  var deadStroke = section.querySelector('.truth-dead-stroke');
-
-  function resetTruth(){
-    started = false;
-    if (truthTimer){ clearTimeout(truthTimer); truthTimer = null; }
-    wrongEl.textContent = '';
-    if (caret) caret.classList.remove('is-done');
-    /* re-arm CSS animations by forcing reflow */
-    if (topBlock){ topBlock.style.animation = 'none'; topBlock.offsetHeight; topBlock.style.animation = ''; }
-    if (deadText){ deadText.style.animation = 'none'; deadText.offsetHeight; deadText.style.animation = ''; }
-    if (deadStroke){ deadStroke.style.cssText += ''; }
-  }
-
-  function startTyping(){
-    if (started) return;
-    started = true;
-    wrongEl.textContent = '';
-    var i = 0;
-    var charMs = 140;
-    function tick(){
-      if (!started) return;
-      if (i < full.length) {
-        wrongEl.textContent += full.charAt(i);
-        i++;
-        truthTimer = window.setTimeout(tick, charMs);
-      } else if (caret) {
-        caret.classList.add('is-done');
-      }
-    }
-    truthTimer = window.setTimeout(tick, 2180);
-  }
-
-  section.addEventListener('deck:exit', resetTruth);
-
-  function onTruthPlayed(){
-    if (!section.classList.contains('deck-headline-played')) return;
-    startTyping();
-  }
-  var mo = new MutationObserver(onTruthPlayed);
-  mo.observe(section, { attributes: true, attributeFilter: ['class'] });
-  onTruthPlayed();
-})();
-
-(function(){
-  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var videos = document.querySelectorAll('video.reel');
-  if (!videos.length) return;
-  if (prefersReduced) {
-    videos.forEach(function(v){
-      v.removeAttribute('autoplay');
-      v.pause();
-    });
-    return;
-  }
-  if (!('IntersectionObserver' in window)) return;
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
-      var v = entry.target;
-      if (entry.isIntersecting) {
-        var p = v.play();
-        if (p && typeof p.catch === 'function') p.catch(function(){});
-      } else {
-        v.pause();
-      }
+      if (entry.isIntersecting) entry.target.classList.add('show');
     });
-  }, { threshold: 0.35 });
-  videos.forEach(function(v){ io.observe(v); });
-})();
-
-(function(){
-  var vid = document.getElementById('influCarouselVideo');
-  if (!vid) return;
-  var slides = [
-    { src: 'assets/vid/influ/influ-reel.mp4', poster: 'assets/vid/influ/influ-poster.webp', label: 'Arcade / viral' },
-    { src: 'assets/vid/influ/influ-reel-bae-gaming.mp4', poster: 'assets/vid/influ/influ-poster-gaming.webp', label: 'Gaming zone' },
-    { src: 'assets/vid/influ/influ-reel-delhi-food.mp4', poster: 'assets/vid/influ/influ-poster-delhi.jpg', label: 'Delhi food & vibe' }
-  ];
-  var idx = 0;
-  var cap = document.getElementById('influCarouselCaption');
-  var dots = document.querySelectorAll('[data-influ-dot]');
-  function setDots(){
-    dots.forEach(function(d, j){
-      d.classList.toggle('active', j === idx);
-      if (j === idx) d.setAttribute('aria-current', 'true');
-      else d.removeAttribute('aria-current');
-    });
-  }
-  function goTo(newIdx){
-    idx = ((newIdx % slides.length) + slides.length) % slides.length;
-    var s = slides[idx];
-    vid.pause();
-    vid.src = s.src;
-    vid.setAttribute('poster', s.poster);
-    if (cap) cap.textContent = (idx + 1) + ' / 3 · ' + s.label;
-    setDots();
-    vid.load();
-    var play = function(){ vid.play().catch(function(){}); };
-    if (vid.readyState >= 2) play();
-    else vid.addEventListener('loadeddata', play, { once: true });
-  }
-  var prev = document.getElementById('influPrev');
-  var next = document.getElementById('influNext');
-  if (prev) prev.addEventListener('click', function(){ goTo(idx - 1); });
-  if (next) next.addEventListener('click', function(){ goTo(idx + 1); });
-  dots.forEach(function(d){
-    d.addEventListener('click', function(){
-      goTo(parseInt(d.getAttribute('data-influ-dot'), 10));
-    });
-  });
-})();
-
-(function(){
-  var pdfBtn = document.getElementById('btnSavePdf');
-  if (pdfBtn) pdfBtn.addEventListener('click', function(){ window.print(); });
-  var pptBtn = document.getElementById('btnSavePpt');
-  if (!pptBtn) return;
-  pptBtn.addEventListener('click', function(){
-    pptBtn.disabled = true;
-    loadPptxGen(function(err, PptxCtor){
-      if (err) {
-        alert(err);
-        pptBtn.disabled = false;
-        return;
-      }
-      try {
-        buildHivesurfPpt(PptxCtor);
-      } catch (e) {
-        alert('Could not build presentation: ' + (e && e.message ? e.message : String(e)));
-      }
-      pptBtn.disabled = false;
-    });
-  });
-  function loadPptxGen(cb){
-    if (typeof window.__pptxCtor === 'function') return cb(null, window.__pptxCtor);
-    import('https://esm.sh/pptxgenjs@3.12.0')
-      .then(function(mod){
-        var Ctor = mod.default;
-        if (typeof Ctor !== 'function') {
-          cb('Presentation library loaded but export was unexpected.');
-          return;
-        }
-        window.__pptxCtor = Ctor;
-        cb(null, Ctor);
-      })
-      .catch(function(e){
-        cb(e.message || 'Failed to load presentation library. Check your network and try again.');
-      });
-  }
-  function buildHivesurfPpt(PptxCtor){
-    var pptx = new PptxCtor();
-    pptx.title = 'Hivesurf Proposal 2026';
-    pptx.author = 'Hivesurf';
-    var blue = '1E5BFF';
-    var ink = '0A0F2C';
-    var gray = '5A6488';
-    var slide;
-    slide = pptx.addSlide();
-    slide.addText('HIVESURF', { x:0.5, y:1.1, w:9, h:0.9, fontSize:44, bold:true, color:blue });
-    slide.addText('Influencer Marketing Proposal', { x:0.5, y:2.05, w:9, h:0.45, fontSize:22, color:ink });
-    slide.addText('2026 · Performance-led creator marketing · India', { x:0.5, y:2.55, w:9, h:0.4, fontSize:14, color:gray });
-    slide = pptx.addSlide();
-    slide.addText('Who we are', { x:0.5, y:0.45, w:9, h:0.5, fontSize:28, bold:true, color:blue });
-    slide.addText(
-      '• Right creator fit — niche, city, intent\n• Real measurement — reach, views, saves, story taps\n• Aligned voices — 3-creator trust cascade\n• Fast execution — brief to live in 5–7 days',
-      { x:0.5, y:1.05, w:9, h:3.8, fontSize:15, color:ink, valign:'top' }
-    );
-    slide = pptx.addSlide();
-    slide.addText('2026 truth', { x:0.5, y:0.45, w:9, h:0.5, fontSize:28, bold:true, color:blue });
-    slide.addText(
-      'Old spray-and-pray influencer marketing is dead. Performance-led creator marketing is the new playbook — brands that adapt win the feed.',
-      { x:0.5, y:1.05, w:9, h:2.2, fontSize:15, color:ink, valign:'top' }
-    );
-    slide = pptx.addSlide();
-    slide.addText('Formats we ship', { x:0.5, y:0.45, w:9, h:0.5, fontSize:28, bold:true, color:blue });
-    slide.addText(
-      '• Influencer marketing — curated voice, brief-not-script, on-brand polish\n• UGC-style — raw environments, native voice, recommendation feel',
-      { x:0.5, y:1.05, w:9, h:3.2, fontSize:15, color:ink, valign:'top' }
-    );
-    slide = pptx.addSlide();
-    slide.addText('Packages (2026)', { x:0.5, y:0.45, w:9, h:0.5, fontSize:28, bold:true, color:blue });
-    slide.addText(
-      'SPARK — ₹25,000 · 3 nano-micro · 2 weeks\nGROW — ₹40,000 · 3 micro-mid · 3 weeks (most popular)\nDOMINATE — ₹70,000 · 3 mid-large · 4 weeks',
-      { x:0.5, y:1.05, w:9, h:3.2, fontSize:15, color:ink, valign:'top' }
-    );
-    slide = pptx.addSlide();
-    slide.addText('ROI snapshot', { x:0.5, y:0.45, w:9, h:0.5, fontSize:28, bold:true, color:blue });
-    slide.addText(
-      'Conservative revenue benchmarks: Spark ₹60K+ from ₹25K · Grow ₹1.5L+ from ₹40K · Dominate ₹2L+ from ₹70K. ROAS bands ~2–3x · 3–4x · 3–5x — depends on product, offer, and funnel.',
-      { x:0.5, y:1.05, w:9, h:2.5, fontSize:15, color:ink, valign:'top' }
-    );
-    slide = pptx.addSlide();
-    slide.addText('Process', { x:0.5, y:0.45, w:9, h:0.5, fontSize:28, bold:true, color:blue });
-    slide.addText(
-      '1. Brand brief · 2. Script & strategy · 3. Creator match · 4. Content & live · 5. Results report — fully managed.',
-      { x:0.5, y:1.05, w:9, h:2.2, fontSize:15, color:ink, valign:'top' }
-    );
-    slide = pptx.addSlide();
-    slide.addText('Live work (examples)', { x:0.5, y:0.45, w:9, h:0.5, fontSize:28, bold:true, color:blue });
-    slide.addText(
-      '@funkylilmunchkinspro — 2+ influencers · Reel 1: 11K plays, 240+ likes · Reel 2: 35K plays, 800+ likes\n@vm.metals_ · @carnalysys.pdi — campaigns in progress',
-      { x:0.5, y:1.05, w:9, h:3, fontSize:14, color:ink, valign:'top' }
-    );
-    slide = pptx.addSlide();
-    slide.addText('Why Hivesurf', { x:0.5, y:0.45, w:9, h:0.5, fontSize:28, bold:true, color:blue });
-    slide.addText(
-      'Full creator audit · Multi-round approvals · Full dashboard reporting · 5–7 day speed — vs freelance or slow agencies.',
-      { x:0.5, y:1.05, w:9, h:2.5, fontSize:15, color:ink, valign:'top' }
-    );
-    slide = pptx.addSlide();
-    slide.addText('Contact', { x:0.5, y:0.45, w:9, h:0.5, fontSize:28, bold:true, color:blue });
-    slide.addText(
-      'connect@hivesurf.com\n+91 70083 10868\n\nVideo samples: open the HTML deck in a browser.',
-      { x:0.5, y:1.05, w:9, h:3, fontSize:16, color:ink, valign:'top' }
-    );
-    pptx.writeFile({ fileName: 'Hivesurf-Proposal-2026.pptx' });
-  }
+  }, { threshold: 0.25 });
+  items.forEach(function(el){ io.observe(el); });
 })();
 </script>
 </body>
