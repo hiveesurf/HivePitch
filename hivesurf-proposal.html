@@ -89,12 +89,27 @@ nav{
 .logo img{height:42px;width:auto}
 .nav-links{
   display:flex;
-  gap:1rem;
-  font-size:.74rem;
-  letter-spacing:.1em;
+  gap:.65rem;
+  font-size:.68rem;
+  letter-spacing:.08em;
   text-transform:uppercase;
   color:var(--muted);
   font-weight:700;
+  flex-wrap:wrap;
+  justify-content:center;
+  max-width:min(52vw,520px);
+}
+.nav-links a{
+  text-decoration:none;
+  color:inherit;
+  white-space:nowrap;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-idx{
+  display:inline-block;
+  margin-right:.28rem;
+  color:var(--brand);
+  font-variant-numeric:tabular-nums;
 }
 .nav-actions{display:flex;align-items:center;gap:.55rem}
 .btn{
@@ -347,6 +362,128 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
   opacity:1;
   transform:translateY(0) scale(1);
 }
+.roi-disclaimer{
+  margin-top:1.25rem;
+  padding:1rem 1.15rem;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--card);
+  font-size:.86rem;
+  color:var(--muted);
+  max-width:920px;
+}
+.logo-strip{
+  margin-top:1.2rem;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.75rem;
+}
+.logo-slot{
+  border:1px dashed var(--line);
+  border-radius:10px;
+  background:var(--surface);
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.72rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding:.5rem;
+  text-align:center;
+}
+.timeline{
+  margin-top:1.25rem;
+  display:flex;
+  align-items:stretch;
+  gap:0;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--surface);
+}
+.timeline-step{
+  flex:1;
+  padding:1rem .85rem;
+  border-right:1px solid var(--line);
+  position:relative;
+}
+.timeline-step:last-child{border-right:none}
+.timeline-step .wk{
+  font-size:.65rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--brand);
+  font-weight:700;
+}
+.timeline-step h4{
+  margin:.45rem 0 .25rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.95rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.timeline-step p{font-size:.82rem;color:var(--muted);line-height:1.45}
+.scope-grid{
+  margin-top:1.5rem;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+.scope-col{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:1.15rem;
+  background:var(--surface);
+}
+.scope-col h4{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:.75rem;
+  color:var(--text);
+}
+.scope-col.included h4{color:var(--brand)}
+.scope-col ul{list-style:none;display:grid;gap:.45rem}
+.scope-col li{
+  font-size:.88rem;
+  color:var(--muted);
+  padding-left:1rem;
+  position:relative;
+}
+.scope-col li::before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:.55rem;
+  width:5px;
+  height:5px;
+  border-radius:1px;
+  background:var(--brand);
+}
+.scope-col.not li::before{background:var(--muted)}
+.faq-list{
+  margin-top:1.2rem;
+  display:grid;
+  gap:.75rem;
+  max-width:900px;
+}
+.faq-item{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:1rem 1.1rem;
+  background:var(--surface);
+}
+.faq-item h4{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.02rem;
+  letter-spacing:.04em;
+  margin-bottom:.4rem;
+  color:var(--text);
+}
+.faq-item p{font-size:.88rem;color:var(--muted);line-height:1.55}
 @media (max-width:1050px){
   .hero-meta,.stats{grid-template-columns:repeat(2,1fr)}
   .roi-grid,.cards-3,.steps{grid-template-columns:1fr}
@@ -355,10 +492,18 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
 @media (max-width:820px){
   .nav-links{display:none}
 }
+@media (max-width:1100px){
+  .nav-idx{display:none}
+}
 @media (max-width:760px){
   th,td{padding:.62rem .58rem}
   table{min-width:640px}
   .title{font-size:clamp(2.2rem,10vw,4rem)}
+  .timeline{flex-direction:column}
+  .timeline-step{border-right:none;border-bottom:1px solid var(--line)}
+  .timeline-step:last-child{border-bottom:none}
+  .scope-grid{grid-template-columns:1fr}
+  .logo-strip{grid-template-columns:repeat(2,1fr)}
 }
 @media print{
   html{scroll-snap-type:none}
@@ -379,8 +524,12 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
     opacity:1 !important;
     transform:none !important;
   }
-  .hero-wrap,.roi-card,.client-card,.stat,.step,.cta,table{
+  .hero-wrap,.roi-card,.client-card,.stat,.step,.cta,table,.faq-item,.timeline,.scope-col,.logo-slot{
     box-shadow:none !important;
+  }
+  .faq-item,.timeline-step,.scope-col,.logo-slot{
+    break-inside:avoid;
+    page-break-inside:avoid;
   }
 }
 </style>
@@ -390,11 +539,15 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
   <div class="container nav-wrap">
     <a href="#top" class="logo"><img src="assets/hivesurf-logo.png" alt="Hivesurf"></a>
     <div class="nav-links">
-      <a href="#roi">ROI</a>
-      <a href="#clients">Clients</a>
-      <a href="#compare">Compare</a>
-      <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
+      <a href="#top"><span class="nav-idx">01</span>Cover</a>
+      <a href="#partners"><span class="nav-idx">02</span>Partners</a>
+      <a href="#roi"><span class="nav-idx">03</span>ROI</a>
+      <a href="#clients"><span class="nav-idx">04</span>Clients</a>
+      <a href="#compare"><span class="nav-idx">05</span>Compare</a>
+      <a href="#process"><span class="nav-idx">06</span>Process</a>
+      <a href="#delivery"><span class="nav-idx">07</span>Delivery</a>
+      <a href="#faq"><span class="nav-idx">08</span>FAQ</a>
+      <a href="#contact"><span class="nav-idx">09</span>Contact</a>
     </div>
     <div class="nav-actions">
       <button id="downloadPdf" class="btn" type="button">Download PDF</button>
@@ -415,6 +568,20 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
       <div class="metric"><div class="v">3</div><div class="k">Creators per package</div></div>
       <div class="metric"><div class="v">5-7</div><div class="k">Days brief to live</div></div>
       <div class="metric"><div class="v">100%</div><div class="k">Campaign managed</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="deck-slide" id="partners">
+  <div class="container animate">
+    <div class="tag">Brands & Partners</div>
+    <h2 class="title">TRUSTED BY<br><span class="accent">GROWING BRANDS</span></h2>
+    <p class="muted" style="max-width:640px;margin-top:.5rem">Add your client logos here for instant credibility. Replace placeholders with images when ready.</p>
+    <div class="logo-strip">
+      <div class="logo-slot stagger">Your logo</div>
+      <div class="logo-slot stagger">Your logo</div>
+      <div class="logo-slot stagger">Your logo</div>
+      <div class="logo-slot stagger">Your logo</div>
     </div>
   </div>
 </section>
@@ -460,6 +627,7 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
         <div class="roi-foot"><div class="lbl">Conservative ROI</div><div class="val">3x - 5x</div><p>Scaled reach and strong offer can return Rs2L+ depending on category.</p></div>
       </article>
     </div>
+    <p class="roi-disclaimer">Figures above are illustrative benchmarks based on typical category performance. Actual ROI depends on your product, offer, landing experience, and funnel. We refine projections after your brief.</p>
   </div>
 </section>
 
@@ -525,6 +693,86 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
       <article class="step stagger"><div class="num">03</div><h3>Creator Match</h3><p>Three vetted creators. You approve before outreach starts.</p></article>
       <article class="step stagger"><div class="num">04</div><h3>Content & Live</h3><p>Creators shoot. We review and refine. Reels go live.</p></article>
       <article class="step stagger"><div class="num">05</div><h3>Results Report</h3><p>Reach, views, engagement, CPM, and ROI reporting.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="deck-slide" id="delivery">
+  <div class="container animate">
+    <div class="tag">Campaign delivery</div>
+    <h2 class="title">FROM BRIEF TO<br><span class="accent">REPORT</span></h2>
+    <p class="muted" style="margin:.5rem 0 0;max-width:720px">Typical cadence for a standard package. Dates adjust to your approvals and posting schedule.</p>
+    <div class="timeline">
+      <div class="timeline-step stagger">
+        <span class="wk">Week 1</span>
+        <h4>Brief &amp; strategy</h4>
+        <p>Kickoff call, script direction, creator criteria locked.</p>
+      </div>
+      <div class="timeline-step stagger">
+        <span class="wk">Week 1-2</span>
+        <h4>Shortlist</h4>
+        <p>Vetted creators presented. You approve before outreach.</p>
+      </div>
+      <div class="timeline-step stagger">
+        <span class="wk">Week 2-3</span>
+        <h4>Production</h4>
+        <p>Shoot, review, revisions within agreed rounds.</p>
+      </div>
+      <div class="timeline-step stagger">
+        <span class="wk">Week 3+</span>
+        <h4>Live &amp; report</h4>
+        <p>Reels go live, stories complete, performance report delivered.</p>
+      </div>
+    </div>
+    <div class="scope-grid">
+      <div class="scope-col included stagger">
+        <h4>Included</h4>
+        <ul>
+          <li>Creator sourcing and audience vetting</li>
+          <li>Brief, script direction, and brand-safe messaging</li>
+          <li>End-to-end coordination and approvals workflow</li>
+          <li>Campaign management through go-live</li>
+          <li>Performance report (reach, views, engagement, CPM)</li>
+        </ul>
+      </div>
+      <div class="scope-col not stagger">
+        <h4>Not included</h4>
+        <ul>
+          <li>Paid media spend (Meta ads, boosts) unless scoped separately</li>
+          <li>Product samples, shipping, or inventory guarantees</li>
+          <li>Legal contracts beyond standard creator agreements</li>
+          <li>Long-term retainers or exclusivity (custom quote)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="deck-slide" id="faq">
+  <div class="container animate">
+    <div class="tag">FAQ</div>
+    <h2 class="title">QUESTIONS<br><span class="accent">CLIENTS ASK</span></h2>
+    <div class="faq-list">
+      <div class="faq-item stagger">
+        <h4>How do you vet creators?</h4>
+        <p>We check audience authenticity, engagement quality, niche fit, and past brand work before anyone is proposed. You approve the shortlist before we contract creators.</p>
+      </div>
+      <div class="faq-item stagger">
+        <h4>What if a reel underperforms?</h4>
+        <p>We report honestly and recommend next steps: creative iteration, alternate creator, or extended learning window. Benchmarks vary by category; we optimize against your goals.</p>
+      </div>
+      <div class="faq-item stagger">
+        <h4>How many revision rounds are included?</h4>
+        <p>Typically one structured feedback round per deliverable before final approval, aligned in the brief. Extra rounds can be scoped if needed.</p>
+      </div>
+      <div class="faq-item stagger">
+        <h4>What are payment terms?</h4>
+        <p>Standard is an advance to lock creators and dates, with balance aligned to milestones in your proposal. Exact terms are confirmed before kickoff.</p>
+      </div>
+      <div class="faq-item stagger">
+        <h4>Do you track ROI beyond views?</h4>
+        <p>Yes where possible: UTM links, promo codes, and affiliate tags so spend maps to outcomes you care about, not vanity metrics alone.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -653,9 +901,13 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
     slide.addText('2x-5x conservative ROI band | 3 creators per package | 5-7 days brief to live', {x:0.55,y:2.4,w:11.8,h:0.4,fontSize:13,color:muted});
 
     slide = pptx.addSlide();
-    slide.addText('WHAT DOES YOUR MONEY RETURN?', {x:0.55,y:0.4,w:8,h:0.55,fontSize:28,color:dark,bold:true});
-    slide.addText('Spark: Rs 25,000+ -> 2x-3x ROI\nGrow: Rs 40,000+ -> 3x-4x ROI\nDominate: Rs 70,000+ -> 3x-5x ROI', {x:0.55,y:1.15,w:6.3,h:2.1,fontSize:16,color:dark,breakLine:true});
-    slide.addText('Benchmarks include follower mix, projected views, and effective CPM from current campaign baselines.', {x:0.55,y:3.45,w:11.5,h:0.55,fontSize:12,color:muted});
+    slide.addText('BRANDS & PARTNERS', {x:0.55,y:0.45,w:8,h:0.55,fontSize:28,color:dark,bold:true});
+    slide.addText('Placeholder logo strip on the web deck. Replace with client logos for credibility.', {x:0.55,y:1.15,w:11,h:0.9,fontSize:14,color:muted});
+
+    slide = pptx.addSlide();
+    slide.addText('WHAT DOES YOUR MONEY RETURN?', {x:0.55,y:0.4,w:10,h:0.55,fontSize:28,color:dark,bold:true});
+    slide.addText('Spark: Rs 25,000+ -> 2x-3x ROI\nGrow: Rs 40,000+ -> 3x-4x ROI\nDominate: Rs 70,000+ -> 3x-5x ROI', {x:0.55,y:1.05,w:6.5,h:1.9,fontSize:16,color:dark,breakLine:true});
+    slide.addText('Illustrative benchmarks only. Actual ROI depends on product, offer, landing, and funnel. Projections refined after your brief.', {x:0.55,y:3.15,w:11.5,h:0.85,fontSize:12,color:muted});
 
     slide = pptx.addSlide();
     slide.addText('BRANDS WE MANAGE', {x:0.55,y:0.45,w:6,h:0.55,fontSize:30,color:dark,bold:true});
@@ -671,6 +923,19 @@ footer{padding:1.4rem;text-align:center;color:var(--muted);font-size:.85rem}
     slide.addText('SIMPLE PROCESS. POWERFUL OUTCOME.', {x:0.55,y:0.45,w:10.5,h:0.55,fontSize:28,color:dark,bold:true});
     slide.addText('1) Brand Brief\n2) Script & Strategy\n3) Creator Match\n4) Content & Live\n5) Results Report', {x:0.55,y:1.2,w:6,h:2.4,fontSize:16,color:dark});
     slide.addText('Fully managed execution from strategy to reporting.', {x:0.55,y:3.7,w:7,h:0.4,fontSize:13,color:muted});
+
+    slide = pptx.addSlide();
+    slide.addText('CAMPAIGN TIMELINE', {x:0.55,y:0.45,w:8,h:0.5,fontSize:26,color:dark,bold:true});
+    slide.addText('Week 1: Brief and strategy\nWeek 1-2: Creator shortlist and approvals\nWeek 2-3: Production and revisions\nWeek 3+: Go live and performance report', {x:0.55,y:1.1,w:11,h:2.2,fontSize:15,color:dark});
+
+    slide = pptx.addSlide();
+    slide.addText('SCOPE: INCLUDED VS NOT INCLUDED', {x:0.55,y:0.45,w:11,h:0.5,fontSize:24,color:dark,bold:true});
+    slide.addText('Included:\n- Sourcing, vetting, brief, script direction\n- Coordination, approvals, go-live management\n- Performance report (reach, views, engagement, CPM)', {x:0.55,y:1.05,w:5.4,h:2.8,fontSize:13,color:dark,valign:'top'});
+    slide.addText('Not included:\n- Paid media boosts (unless scoped)\n- Product shipping or inventory\n- Legal beyond standard creator agreements\n- Long-term retainers (custom quote)', {x:6.2,y:1.05,w:5.4,h:2.8,fontSize:13,color:dark,valign:'top'});
+
+    slide = pptx.addSlide();
+    slide.addText('FAQ (SHORT)', {x:0.55,y:0.45,w:6,h:0.5,fontSize:26,color:dark,bold:true});
+    slide.addText('Vetting: authenticity, engagement, niche fit, your approval on shortlist.\nUnderperformance: honest reporting; iterate or adjust creators.\nRevisions: typically one structured round per deliverable.\nPayments: advance to lock creators; balance per proposal.\nROI tracking: UTMs, codes, affiliates where possible.', {x:0.55,y:1.05,w:11.2,h:3.5,fontSize:13,color:dark,valign:'top'});
 
     slide = pptx.addSlide();
     slide.addText('LOCK PLAN. GO LIVE THIS WEEK.', {x:0.55,y:1.1,w:10.5,h:0.75,fontSize:34,color:blue,bold:true});
